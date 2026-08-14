@@ -22,5 +22,3 @@ FoodRescue is a platform designed to reduce food waste by connecting local busin
 ## Design
 
 https://www.figma.com/design/ZXv4ECqH63CI6iaHDtxSEo/FoodRescue?node-id=0-1&t=lVHpYbrWIrIUuDNs-0
-
-Teste
