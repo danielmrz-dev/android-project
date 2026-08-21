@@ -12,7 +12,7 @@ val OrangeDark = Color(0xFFD9824A)
 val Terracotta = Color(0xFFD9602F)
 
 val Cream = Color(0xFFF4E9CE)
-val CreamLight = Color(0xFFFCF9F3)
+val CreamLight = Color(0xFFF8EEDE)
 
 val White = Color(0xFFFFFFFF)
 

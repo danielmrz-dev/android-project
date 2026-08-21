@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.fiap.foodrescue.ui.screens.auth.login.LoginScreen
+import br.com.fiap.foodrescue.ui.screens.home.HomeScreen
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             FoodRescueTheme {
                 LoginScreen()
+                //HomeScreen()
             }
         }
     }
