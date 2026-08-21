@@ -31,7 +31,7 @@ Para o desenvolvimento do MVP do FoodRescue, optamos por uma arquitetura focada 
 *   **Ambiente de Desenvolvimento (Android Studio):** Utilizamos a IDE oficial do Google para o ecossistema Android. Ela nos fornece um conjunto robusto de ferramentas e emuladores integrados para testes ágeis, acelerando drasticamente o ciclo de desenvolvimento das telas e da lógica de negócio.
 *   **Versionamento e Colaboração (Git e GitHub):** Adotamos o Git para o controle de versão. O repositório no GitHub atua como nossa central de colaboração, permitindo a gestão de código (Branches e Pull Requests), o acompanhamento do fluxo de trabalho (Kanban/Issues) e a documentação padronizada do projeto.
 *   **Infraestrutura Backend (Firebase):** Para cumprir o requisito de não desenvolver um back-end do zero nesta fase, o Firebase atua como nosso BaaS (Backend as a Service). Ele permite gerenciar o banco de dados em tempo real para as listagens de alimentos e estruturar as variáveis de impacto social de forma rápida e escalável.
-*   **Geolocalização (Google Maps API):** Integrada para mapear os doadogit add readme.mdres e os pontos de resgate. A visualização espacial é crítica para a logística do aplicativo, pois o usuário precisa saber exatamente a distância e a rota até a doação.
+*   **Geolocalização (Google Maps API):** Integrada para mapear os doadores e os pontos de resgate. A visualização espacial é crítica para a logística do aplicativo, pois o usuário precisa saber exatamente a distância e a rota até a doação.
 
 ## Design
 
