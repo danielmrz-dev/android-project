@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             FoodRescueTheme {
                 LoginScreen()
-                // HomeScreen()
+                //HomeScreen()
             }
         }
     }

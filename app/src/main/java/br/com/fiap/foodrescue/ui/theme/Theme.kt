@@ -33,7 +33,7 @@ private val LightColorScheme = lightColorScheme(
     tertiary = Terracotta,
     onTertiary = White,
 
-    background = White,
+    background = Cream,
     onBackground = TextPrimary,
 
     surface = White,

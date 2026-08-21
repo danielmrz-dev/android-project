@@ -2,13 +2,11 @@ package br.com.fiap.foodrescue.ui.screens.home
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,6 +17,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.NotificationsNone
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -28,7 +28,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,16 +36,13 @@ import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp)
-            .background(color = MaterialTheme.colorScheme.secondaryContainer)
-    ){
-        Scaffold(
-            topBar = {MyTopAppBar()},
-            bottomBar = {},
-        ) { ContentScreen()}
+    Scaffold(
+        topBar = {MyTopAppBar()},
+        bottomBar = {},
+    ) { paddingValues ->
+        ContentScreen(
+            modifier = Modifier.padding(paddingValues)
+        )
     }
 }
 
@@ -67,30 +63,39 @@ fun MyTopAppBar(modifier: Modifier = Modifier) {
     TopAppBar(
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp),
+            .height(130.dp),
         title = {
-            Box(modifier = Modifier){
-                Column() {
-                    Row() {
+            Column(
+                modifier = Modifier
+                    .padding(top = 10.dp)
+            ) {
+                Row() {
+                    Card(modifier = Modifier
+                        .size(50.dp),
+                        shape = CircleShape,
+                        colors = CardDefaults
+                            .cardColors(
+                                containerColor = Color.Transparent
+                            )
+                    ) {
                         Image(
-                            modifier = Modifier
-                                .size(50.dp)
-                                .clip(CircleShape),
                             painter = painterResource(br.com.fiap.foodrescue.R.drawable.icon_app),
                             contentDescription = "Icon app"
                         )
-                        MyLocation()
-                        Spacer(modifier = Modifier.padding(start = 70.dp))
-                        Icon(
-                            imageVector = Icons.Default.NotificationsNone,
-                            contentDescription = "Notification icon",
-                            modifier = Modifier
-                                .padding(8.dp)
-
-
-                        )
                     }
-                    Spacer(modifier = Modifier.padding(top = 8.dp))
+                    MyLocation()
+                    Spacer(modifier = Modifier.padding(start = 70.dp))
+                    Icon(
+                        imageVector = Icons.Default.NotificationsNone,
+                        contentDescription = "Notification icon",
+                        modifier = Modifier
+                            .padding(8.dp)
+
+
+                    )
+                }
+                Spacer(modifier = Modifier.padding(top = 8.dp))
+                Row() {
                     Text(
                         text = "Home",
                         color = MaterialTheme.colorScheme.primary,
@@ -162,6 +167,19 @@ fun MyLocation(modifier: Modifier = Modifier) {
 private fun MyLocationPreview() {
     FoodRescueTheme() {
         MyLocation()
+    }
+}
+
+@Composable
+fun MyBottomAppBar(modifier: Modifier = Modifier) {
+    
+}
+
+@Preview
+@Composable
+private fun MyBottomAppBarPreview() {
+    FoodRescueTheme() {
+        MyBottomAppBar()
     }
 }
 
