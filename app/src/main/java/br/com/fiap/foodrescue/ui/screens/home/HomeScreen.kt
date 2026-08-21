@@ -1,6 +1,7 @@
 package br.com.fiap.foodrescue.ui.screens.home
 
 import android.content.res.Configuration
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,15 +14,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.NotificationsNone
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -57,54 +62,83 @@ private fun HomeScreenPreview() {
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTopAppBar(modifier: Modifier = Modifier) {
-    TopAppBar(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(130.dp),
-        title = {
-            Column(
-                modifier = Modifier
-                    .padding(top = 10.dp)
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = 3.dp // Opcional: dá uma leve sombra/elevação
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 16.dp, vertical = 12.dp)
+                .padding(top = 20.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Row() {
-                    Card(modifier = Modifier
-                        .size(50.dp),
+                Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                    Card(
+                        modifier = Modifier.size(50.dp),
                         shape = CircleShape,
-                        colors = CardDefaults
-                            .cardColors(
-                                containerColor = Color.Transparent
-                            )
+                        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+                        border = BorderStroke(
+                            width = 1.dp,
+                            color = Color.Gray
+                        )
                     ) {
                         Image(
                             painter = painterResource(br.com.fiap.foodrescue.R.drawable.icon_app),
-                            contentDescription = "Icon app"
+                            contentDescription = "Icon app",
+
                         )
                     }
                     MyLocation()
-                    Spacer(modifier = Modifier.padding(start = 70.dp))
-                    Icon(
-                        imageVector = Icons.Default.NotificationsNone,
-                        contentDescription = "Notification icon",
-                        modifier = Modifier
-                            .padding(8.dp)
-
-
-                    )
                 }
-                Spacer(modifier = Modifier.padding(top = 8.dp))
-                Row() {
-                    Text(
-                        text = "Home",
-                        color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                }
+
+                Icon(
+                    imageVector = Icons.Default.NotificationsNone,
+                    contentDescription = "Notification icon",
+                    modifier = Modifier.padding(8.dp)
+                )
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Home",
+                color = MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                value = "",
+                onValueChange = {},
+                shape = RoundedCornerShape(16.dp),
+                colors = OutlinedTextFieldDefaults
+                    .colors(
+                        unfocusedBorderColor = Color.Transparent,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer
+                    ),
+                label = {
+                    Text(
+                        text = "Search for nearby donations..."
+                    )
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search icon"
+                    )
+                }
+            )
         }
-    )
+    }
 }
 
 @Preview(
