@@ -88,4 +88,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     "ksp"(libs.androidx.room.compiler)
     "ksp"(libs.moshi.kotlin.codegen)
+
+    // Mais icones
+    implementation("androidx.compose.material:material-icons-extended-android:1.7.8")
 }
