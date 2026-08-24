@@ -9,7 +9,7 @@ RM: 566847
 Nome: Beatriz Cavalcanti
 RM: 568493
 
-Bruna Sangoleti
+Nome: Bruna Sangoleti
 RM: 567014
 
 Wesley Santos
