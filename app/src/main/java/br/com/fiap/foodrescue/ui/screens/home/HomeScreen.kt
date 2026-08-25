@@ -81,19 +81,8 @@ fun MyTopAppBar(modifier: Modifier = Modifier) {
             .padding(horizontal = 20.dp)
     ) {
         //Criar componente do Header (começo)
-        // Linha Superior: Logo + Localização + Notificação
+        // Linha Superior: Logo + Localização + Notificação + Título Dinâmico (Home)
         TopAppBarComponent(title = "Home")
-
-        Spacer(modifier = Modifier.height(14.dp))
-
-        // Título Home
-        Text(
-            text = "Home",
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
-            fontSize = 32.sp,
-            fontWeight = FontWeight.ExtraBold,
-            fontFamily = FontFamily.Serif
-        )
 
         HorizontalDivider(
             modifier = Modifier.padding(top = 4.dp, bottom = 12.dp),
@@ -135,46 +124,6 @@ fun MyTopAppBar(modifier: Modifier = Modifier) {
     }
 }
 
-// Componente do Sino de Notificação com Badge Circular
-@Composable
-fun NotificationBellWithBadge(
-    count: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .size(44.dp)
-            .clip(CircleShape)
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center
-    ) {
-        Icon(
-            imageVector = Icons.Default.Notifications,
-            contentDescription = "Notificações",
-            tint = Color.Black,
-            modifier = Modifier.size(28.dp)
-        )
-
-        // Badge Redondo
-        Box(
-            modifier = Modifier
-                .size(18.dp)
-                .align(Alignment.TopEnd)
-                .offset(x = (-2).dp, y = 2.dp)
-                .background(Color(0xFFE86B3E), CircleShape),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = count,
-                color = Color.White,
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
-        }
-    }
-}
 
 // Corpo principal
 @Composable

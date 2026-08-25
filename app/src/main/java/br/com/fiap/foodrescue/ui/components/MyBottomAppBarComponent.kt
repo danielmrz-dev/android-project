@@ -33,23 +33,25 @@ import androidx.compose.ui.unit.sp
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
-fun MyBottomAppBar(modifier: Modifier = Modifier) {
+fun MyBottomAppBar(
+    modifier: Modifier = Modifier,
+    currentRoute: String = "Home" // Parâmetro novo!
+) {
     Surface(
-        modifier = modifier
-            .fillMaxWidth()
-            .navigationBarsPadding(), // Garante que a barra de gestos do celular não sobreponha
+        modifier = modifier.fillMaxWidth(),
         color = Color.White,
         shadowElevation = 8.dp
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .navigationBarsPadding() // Protege os ícones, mas deixa o fundo branco descer!
                 .padding(vertical = 10.dp, horizontal = 12.dp),
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BottomNavItem(icon = Icons.Default.Home, label = "Home", isSelected = true, onClick = {})
-            BottomNavItem(icon = Icons.Default.Search, label = "Explorar", isSelected = false, onClick = {})
+            BottomNavItem(icon = Icons.Default.Home, label = "Home", isSelected = currentRoute == "Home", onClick = {})
+            BottomNavItem(icon = Icons.Default.Search, label = "Explorar", isSelected = currentRoute == "Explorar", onClick = {})
 
             // Botão Central (+)
             Box(
@@ -68,8 +70,8 @@ fun MyBottomAppBar(modifier: Modifier = Modifier) {
                 )
             }
 
-            BottomNavItem(icon = Icons.Default.FavoriteBorder, label = "Retiradas", isSelected = false, onClick = {})
-            BottomNavItem(icon = Icons.Default.PersonOutline, label = "Perfil", isSelected = false, onClick = {})
+            BottomNavItem(icon = Icons.Default.FavoriteBorder, label = "Retiradas", isSelected = currentRoute == "Retiradas", onClick = {})
+            BottomNavItem(icon = Icons.Default.PersonOutline, label = "Perfil", isSelected = currentRoute == "Perfil", onClick = {})
         }
     }
 }
