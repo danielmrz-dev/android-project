@@ -346,10 +346,10 @@ private fun FilterChipsSection() {
 @Composable
 private fun DonationListSection() {
     val donations = listOf(
-        DonationItem("Frutas Variadas", "Sacola da Vila", "5 un. disponíveis", "0.8km", imageRes = R.drawable.fruits),
-        DonationItem("Pães Artesanais", "Padaria Pão & Arte", "10 un. disponíveis", "1.2km", imageRes = R.drawable.bread),
-        DonationItem("Marmitas Prontas", "Restaurante Sabor da Terra", "6 un. disponíveis", "1.5km", imageRes = R.drawable.marmita),
-        DonationItem("Legumes Frescos", "Horta Comunitária", "2 un. disponíveis", "2.0km", imageRes = R.drawable.legumes)
+        DonationItem("Frutas Variadas", "Sacola da Vila", "5 un. disponíveis", "0.8km"),
+        DonationItem("Pães Artesanais", "Padaria Pão & Arte", "10 un. disponíveis", "1.2km"),
+        DonationItem("Marmitas Prontas", "Restaurante Sabor da Terra", "6 un. disponíveis", "1.5km",),
+        DonationItem("Legumes Frescos", "Horta Comunitária", "2 un. disponíveis", "2.0km")
     )
 
     LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
