@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -21,7 +20,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Groups
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -41,14 +39,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.components.MyBottomAppBar
 import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
@@ -80,9 +79,8 @@ fun MyTopAppBar(modifier: Modifier = Modifier) {
         modifier = modifier
             .padding(horizontal = 20.dp)
     ) {
-        //Criar componente do Header (começo)
         // Linha Superior: Logo + Localização + Notificação + Título Dinâmico (Home)
-        TopAppBarComponent(title = "Home")
+        TopAppBarComponent(title = stringResource(R.string.home))
 
         HorizontalDivider(
             modifier = Modifier.padding(top = 4.dp, bottom = 12.dp),
@@ -99,7 +97,7 @@ fun MyTopAppBar(modifier: Modifier = Modifier) {
                 .height(52.dp),
             placeholder = {
                 Text(
-                    text = "Pesquisar doações próximas...",
+                    text = stringResource(R.string.search_for_donations_near_you),
                     color = MaterialTheme.colorScheme.onBackground,
                     fontSize = 14.sp
                 )
@@ -107,7 +105,7 @@ fun MyTopAppBar(modifier: Modifier = Modifier) {
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
-                    contentDescription = "Buscar",
+                    contentDescription = stringResource(R.string.search_icon),
                     tint = MaterialTheme.colorScheme.onBackground
                 )
             },
@@ -175,7 +173,7 @@ fun ImpactCard() {
                     )
                 }
                 Text(
-                    text = "SEU IMPACTO HOJE",
+                    text = stringResource(R.string.your_impact_today),
                     color = Color(0xFFD6E3DB),
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
@@ -186,7 +184,7 @@ fun ImpactCard() {
             Spacer(modifier = Modifier.height(14.dp))
 
             Text(
-                text = "127 refeições salvas",
+                text = stringResource(R.string._127_meals_rescued),
                 color = Color.White,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
@@ -194,7 +192,7 @@ fun ImpactCard() {
                 textAlign = TextAlign.Center
             )
             Text(
-                text = "na sua comunidade essa semana",
+                text = stringResource(R.string.in_your_community_this_week),
                 color = Color(0xFFC0D2C7),
                 fontSize = 13.sp,
                 textAlign = TextAlign.Center
@@ -206,9 +204,9 @@ fun ImpactCard() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
-                StatItem(value = "48", label = "doadores")
-                StatItem(value = "312kg", label = "resgatados")
-                StatItem(value = "1.2k", label = "pessoas")
+                StatItem(value = "48", label = stringResource(R.string.donors))
+                StatItem(value = "312kg", label = stringResource(R.string.rescued))
+                StatItem(value = "1.2k", label = stringResource(R.string.people))
             }
         }
     }
@@ -266,7 +264,7 @@ fun RequestsCard() {
                     )
                 }
                 Text(
-                    text = "SUAS SOLICITAÇÕES",
+                    text = stringResource(R.string.your_requests),
                     color = Color(0xFFFFDEC9),
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
@@ -277,7 +275,7 @@ fun RequestsCard() {
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = "Você tem 2 solicitações\nde retirada ativas",
+                text = stringResource(R.string.you_have_2_active_withdrawal_requests),
                 color = Color.White,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
@@ -291,10 +289,10 @@ fun RequestsCard() {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
-                modifier = Modifier.clickable { /* Ação */ }
+                modifier = Modifier.clickable {}
             ) {
                 Text(
-                    text = "Vá até o local e retire agora",
+                    text = stringResource(R.string.go_to_the_location_and_pick_it_up_now),
                     color = Color.White,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
@@ -328,7 +326,7 @@ fun MapPreviewCard() {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "📍 [Preview do Mapa]",
+                    text = stringResource(R.string.map_preview),
                     color = MaterialTheme.colorScheme.onBackground,
                     fontSize = 14.sp
                 )
@@ -349,7 +347,7 @@ fun MapPreviewCard() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        text = "Encontre doações próximas a você",
+                        text = stringResource(R.string.find_donations_near_you),
                         color = Color.White,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold

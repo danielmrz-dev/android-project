@@ -38,9 +38,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
@@ -78,7 +80,7 @@ fun TopAppBarComponent(
                 ) {
                     Image(
                         painter = painterResource(br.com.fiap.foodrescue.R.drawable.icon_app),
-                        contentDescription = "Icon app",
+                        contentDescription = stringResource(R.string.food_rescue_icon),
                     )
                 }
 
@@ -103,48 +105,11 @@ fun TopAppBarComponent(
     }
 }
 
-@Composable
-fun AppLocation(modifier: Modifier = Modifier) {
-    Box(modifier = Modifier.width(200.dp)) {
-        Column(modifier = modifier) {
-            Row(
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically // <--- Centraliza os 3 itens!
-            ) {
-                Icon(
-                    imageVector = Icons.Default.LocationOn,
-                    contentDescription = "Location icon",
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    modifier = Modifier.padding(start = 6.dp),
-                    text = "Localização",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.headlineSmall
-                )
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
-                    contentDescription = "Arrow icon",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(start = 4.dp).size(16.dp) // Diminuí um pouco a seta para ficar mais elegante
-                )
-            }
-            Row {
-                Text(
-                    modifier = Modifier.padding(start = 30.dp),
-                    text = "Vila Madalena, SP",
-                    style = MaterialTheme.typography.displaySmall
-                )
-            }
-        }
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 private fun TopAppBarComponentPreview() {
     FoodRescueTheme {
-        TopAppBarComponent(title = "Home")
+        TopAppBarComponent(title = stringResource(R.string.home))
     }
 }
 
@@ -164,7 +129,7 @@ fun NotificationBellWithBadge(
     ) {
         Icon(
             imageVector = Icons.Default.Notifications,
-            contentDescription = "Notificações",
+            contentDescription = stringResource(R.string.notification_icon),
             tint = Color.Black,
             modifier = Modifier.size(28.dp)
         )

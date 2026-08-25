@@ -37,6 +37,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -100,7 +101,7 @@ fun LoginScreen() {
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.icon_app),
-                                contentDescription = "Logo do Aplicativo",
+                                contentDescription = stringResource(R.string.food_rescue_icon),
                                 modifier = Modifier
                                     .size(100.dp)
                                     .clip(RoundedCornerShape(20.dp))
@@ -118,22 +119,26 @@ fun LoginScreen() {
                             .padding(dimensionResource(R.dimen.padding_medium))
                     ) {
                         Text(
-                            "FoodRescue",
+                            stringResource(R.string.app_name),
                             style = MaterialTheme.typography.headlineMedium,
                             color = MaterialTheme.colorScheme.primary,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.fillMaxSize().paddingFromBaseline(bottom = 20.dp)
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .paddingFromBaseline(bottom = 20.dp)
                         )
                     }
                     Text(
-                        "Entrar",
+                        stringResource(R.string.login),
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
                         overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.fillMaxSize().paddingFromBaseline(bottom = 20.dp)
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .paddingFromBaseline(bottom = 20.dp)
 
                     )
 
@@ -141,11 +146,11 @@ fun LoginScreen() {
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Email,
-                                contentDescription = "Notification icon",
+                                contentDescription = stringResource(R.string.email_icon),
                                 modifier = Modifier.padding(8.dp)
                             )
                         },
-                        label = { Text("Email") },
+                        label = { Text(stringResource(R.string.email)) },
                         value = email,
                         onValueChange = { email = it },
                         modifier = Modifier.fillMaxWidth()
@@ -157,11 +162,11 @@ fun LoginScreen() {
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Password,
-                                contentDescription = "Notification icon",
+                                contentDescription = stringResource(R.string.password_icon),
                                 modifier = Modifier.padding(8.dp)
                             )
                         },
-                        label = { Text("Senha") },
+                        label = { Text(stringResource(R.string.password)) },
                         value = password,
                         onValueChange = { password = it },
                         modifier = Modifier.fillMaxWidth()
@@ -175,13 +180,13 @@ fun LoginScreen() {
 
                         }
                     ) {
-                        Text("Continuar")
+                        Text(stringResource(R.string.sign_in))
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        "Ainda não tem conta? Clique aqui para se registrar!",
+                        stringResource(R.string.don_t_have_an_account_click_here_to_register),
                         style = MaterialTheme.typography.headlineMedium,
                         fontSize = 13.sp,
                         color = MaterialTheme.colorScheme.primary,

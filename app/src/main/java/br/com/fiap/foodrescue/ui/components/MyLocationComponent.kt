@@ -19,6 +19,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.background
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import br.com.fiap.foodrescue.R
+import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
 fun MyLocation(modifier: Modifier = Modifier) {
@@ -33,28 +37,36 @@ fun MyLocation(modifier: Modifier = Modifier) {
         ) {
             Icon(
                 imageVector = Icons.Default.LocationOn,
-                contentDescription = "Ícone Localização",
+                contentDescription = stringResource(R.string.location_icon),
                 tint = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.size(15.dp)
             )
             Text(
-                text = "Localização",
+                text = stringResource(R.string.location),
                 color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
             )
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
-                contentDescription = "Seta",
+                contentDescription = stringResource(R.string.arrow_icon),
                 tint = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.size(9.dp)
             )
         }
         Text(
-            text = "Vila Madalena, SP",
+            text = stringResource(R.string.vila_madalena_sp),
             color = Color.Black,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold
         )
+    }
+}
+
+@Preview
+@Composable
+private fun MyLocationPreview() {
+    FoodRescueTheme() {
+        MyLocation()
     }
 }

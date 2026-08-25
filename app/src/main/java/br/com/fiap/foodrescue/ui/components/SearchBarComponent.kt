@@ -16,14 +16,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
 fun SearchBarComponent(
     modifier: Modifier = Modifier,
-    placeholder: String = "Pesquise doações próximas a você..."
+    placeholder: String = stringResource(R.string.search_for_donations_near_you)
 ) {
     var query by remember { mutableStateOf("") }
 
@@ -49,7 +51,7 @@ fun SearchBarComponent(
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = "Search icon",
+                contentDescription = stringResource(R.string.search_icon),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

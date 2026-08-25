@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -73,22 +74,24 @@ fun RegisterScreen() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        "Cadastro",
+                        stringResource(R.string.sign_up),
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
                         overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.fillMaxSize().paddingFromBaseline(bottom = 20.dp)
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .paddingFromBaseline(bottom = 20.dp)
                     )
                     OutlinedTextField(
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Person,
-                                contentDescription = "Notification icon",
+                                contentDescription = stringResource(R.string.person_icon),
                                 modifier = Modifier.padding(8.dp)
                             )
                         },
-                        label = { Text("Nome completo") },
+                        label = { Text(stringResource(R.string.full_name)) },
                         value = fullName,
                         onValueChange = { fullName = it },
                         modifier = Modifier.fillMaxWidth()
@@ -100,11 +103,11 @@ fun RegisterScreen() {
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Email,
-                                contentDescription = "Notification icon",
+                                contentDescription = stringResource(R.string.email),
                                 modifier = Modifier.padding(8.dp)
                             )
                         },
-                        label = { Text("Email") },
+                        label = { Text(stringResource(R.string.email)) },
                         value = email,
                         onValueChange = { email = it },
                         modifier = Modifier.fillMaxWidth()
@@ -116,11 +119,11 @@ fun RegisterScreen() {
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Person,
-                                contentDescription = "Notification icon",
+                                contentDescription = stringResource(R.string.person_icon),
                                 modifier = Modifier.padding(8.dp)
                             )
                         },
-                        label = { Text("CPF") },
+                        label = { Text(stringResource(R.string.tax_id_number)) },
                         value = email,
                         onValueChange = { email = it },
                         modifier = Modifier.fillMaxWidth()
@@ -132,11 +135,11 @@ fun RegisterScreen() {
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.CalendarToday,
-                                contentDescription = "Notification icon",
+                                contentDescription = stringResource(R.string.calendar_icon),
                                 modifier = Modifier.padding(8.dp)
                             )
                         },
-                        label = { Text("Data de nascimento") },
+                        label = { Text(stringResource(R.string.date_of_birth)) },
                         value = email,
                         onValueChange = { email = it },
                         modifier = Modifier.fillMaxWidth()
@@ -148,11 +151,11 @@ fun RegisterScreen() {
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Password,
-                                contentDescription = "Notification icon",
+                                contentDescription = stringResource(R.string.password_icon),
                                 modifier = Modifier.padding(8.dp)
                             )
                         },
-                        label = { Text("Senha") },
+                        label = { Text(stringResource(R.string.password)) },
                         value = email,
                         onValueChange = { email = it },
                         modifier = Modifier.fillMaxWidth()
@@ -164,11 +167,11 @@ fun RegisterScreen() {
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Password,
-                                contentDescription = "Notification icon",
+                                contentDescription = stringResource(R.string.password_icon),
                                 modifier = Modifier.padding(8.dp)
                             )
                         },
-                        label = { Text("Confirme sua senha") },
+                        label = { Text(stringResource(R.string.confirm_your_password)) },
                         value = email,
                         onValueChange = { email = it },
                         modifier = Modifier.fillMaxWidth()
@@ -182,7 +185,7 @@ fun RegisterScreen() {
 
                         }
                     ) {
-                        Text("Registrar")
+                        Text(stringResource(R.string.create_a_new_account))
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
