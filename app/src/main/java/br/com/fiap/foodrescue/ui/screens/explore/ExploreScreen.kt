@@ -6,29 +6,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -42,14 +31,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
+import br.com.fiap.foodrescue.ui.components.MyBottomAppBar
+import br.com.fiap.foodrescue.ui.components.SearchBarComponent
+import br.com.fiap.foodrescue.ui.theme.Disabled
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
@@ -60,30 +52,11 @@ fun ExplorarScreen(
     onNavigateToPerfil: () -> Unit = {}
 ) {
     Scaffold(
+        modifier = modifier
+            .fillMaxSize()
+            .statusBarsPadding(),
         topBar = { TopAppBarComponent(title = "Explorar") },
-        bottomBar = {
-            ExploreBottomAppBar(
-                onNavigateToHome = onNavigateToHome,
-                onNavigateToRetiradas = onNavigateToRetiradas,
-                onNavigateToPerfil = onNavigateToPerfil
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /* Acao do botao central */ },
-                containerColor = MaterialTheme.colorScheme.primary,
-                shape = CircleShape,
-                modifier = Modifier.size(64.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Adicionar",
-                    tint = Color.White,
-                    modifier = Modifier.size(32.dp)
-                )
-            }
-        },
-        floatingActionButtonPosition = FabPosition.Center
+        bottomBar = { MyBottomAppBar(currentRoute = "Explorar") }
     ) { paddingValues ->
         ExploreContentScreen(
             modifier = Modifier.padding(paddingValues)
@@ -101,59 +74,16 @@ private fun ExplorarScreenPreview() {
 
 
 @Composable
-fun ExploreBottomAppBar(
-    modifier: Modifier = Modifier,
-    onNavigateToHome: () -> Unit = {},
-    onNavigateToRetiradas: () -> Unit = {},
-    onNavigateToPerfil: () -> Unit = {}
-) {
-    BottomAppBar(
-        containerColor = MaterialTheme.colorScheme.surface,
-        modifier = modifier.clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ExploreBottomNavItem(
-                icon = Icons.Default.Home,
-                label = "Home",
-                onClick = onNavigateToHome
-            )
-            ExploreBottomNavItem(
-                icon = Icons.Default.Search,
-                label = "Explorar",
-                isSelected = true,
-                onClick = {}
-            )
-
-            Spacer(modifier = Modifier.width(48.dp))
-
-            ExploreBottomNavItem(
-                icon = Icons.Default.List,
-                label = "Retiradas",
-                onClick = onNavigateToRetiradas
-            )
-            ExploreBottomNavItem(
-                icon = Icons.Default.Person,
-                label = "Perfil",
-                onClick = onNavigateToPerfil
-            )
-        }
-    }
-}
-
-
-@Composable
 fun ExploreContentScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.surface)
+            .background(color = MaterialTheme.colorScheme.surface) // Fundo da tela Branco
             .padding(horizontal = 16.dp)
     ) {
         Spacer(modifier = Modifier.height(16.dp))
+        SearchBarComponent()
+        Spacer(modifier = Modifier.height(12.dp))
         FilterChipsSection()
         Spacer(modifier = Modifier.height(16.dp))
         DonationListSection(modifier = Modifier.weight(1f))
@@ -170,15 +100,15 @@ private fun FilterChipsSection() {
             val isSelected = filter == selectedFilter
             Surface(
                 shape = RoundedCornerShape(16.dp),
-                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer,
+                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
                 shadowElevation = if (isSelected) 4.dp else 0.dp,
-                border = if (!isSelected) BorderStroke(1.dp, br.com.fiap.foodrescue.ui.theme.Disabled) else null,
+                border = if (!isSelected) BorderStroke(1.dp, Disabled) else null,
                 modifier = Modifier.padding(vertical = 4.dp),
                 onClick = { selectedFilter = filter }
             ) {
                 Text(
                     text = filter,
-                    color = if (isSelected) Color.White else br.com.fiap.foodrescue.ui.theme.Disabled,
+                    color = if (isSelected) Color.White else Disabled,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                     fontSize = 14.sp
                 )
@@ -190,10 +120,10 @@ private fun FilterChipsSection() {
 @Composable
 private fun DonationListSection(modifier: Modifier = Modifier) {
     val donations = listOf(
-        DonationItem("Frutas Variadas", "Sacola da Vila", "5 un. disponíveis", "0.8km"),
-        DonationItem("Pães Artesanais", "Padaria Pão & Arte", "10 un. disponíveis", "1.2km"),
-        DonationItem("Marmitas Prontas", "Restaurante Sabor da Terra", "6 un. disponíveis", "1.5km",),
-        DonationItem("Legumes Frescos", "Horta Comunitária", "2 un. disponíveis", "2.0km")
+        DonationItem("Frutas Variadas", "Sacola da Vila", "5 un. disponíveis", "0.8km", imageRes = R.drawable.fruits),
+        DonationItem("Pães Artesanais", "Padaria Pão & Arte", "10 un. disponíveis", "1.2km", imageRes = R.drawable.bread),
+        DonationItem("Marmitas Prontas", "Restaurante Sabor da Terra", "6 un. disponíveis", "1.5km", imageRes = R.drawable.marmita),
+        DonationItem("Legumes Frescos", "Horta Comunitária", "2 un. disponíveis", "2.0km", imageRes = R.drawable.legumes)
     )
 
     LazyColumn(
@@ -215,7 +145,7 @@ private fun DonationCard(item: DonationItem) {
         shadowElevation = 4.dp,
         modifier = Modifier.fillMaxWidth()
     ) {
-        Row(
+        androidx.compose.foundation.layout.Row(
             modifier = Modifier
                 .padding(12.dp)
                 .fillMaxWidth(),
@@ -278,30 +208,6 @@ private fun DonationCard(item: DonationItem) {
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun ExploreBottomNavItem(
-    icon: ImageVector,
-    label: String,
-    isSelected: Boolean = false,
-    onClick: () -> Unit
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(8.dp)
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = label,
-            tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        Text(
-            text = label,
-            fontSize = 10.sp,
-            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
-        )
     }
 }
 

@@ -18,11 +18,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.background
 
 @Composable
 fun MyLocation(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier.clickable {}
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.surface)
+            .clickable {}
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
