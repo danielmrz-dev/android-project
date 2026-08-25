@@ -1,6 +1,5 @@
 package br.com.fiap.foodrescue.ui.screens.explore
 
-import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -50,8 +49,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.com.fiap.foodrescue.R
-import br.com.fiap.foodrescue.ui.components.AppTopBar
+import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
@@ -62,7 +60,7 @@ fun ExplorarScreen(
     onNavigateToPerfil: () -> Unit = {}
 ) {
     Scaffold(
-        topBar = { AppTopBar(title = "Explorar") },
+        topBar = { TopAppBarComponent(title = "Explorar") },
         bottomBar = {
             ExploreBottomAppBar(
                 onNavigateToHome = onNavigateToHome,
