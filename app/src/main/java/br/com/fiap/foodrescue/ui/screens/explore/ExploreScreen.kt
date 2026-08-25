@@ -46,7 +46,7 @@ import br.com.fiap.foodrescue.ui.theme.Disabled
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
-fun ExplorarScreen(
+fun ExploreScreen(
     modifier: Modifier = Modifier,
     onNavigateToHome: () -> Unit = {},
     onNavigateToRetiradas: () -> Unit = {},
@@ -69,7 +69,7 @@ fun ExplorarScreen(
 @Composable
 private fun ExplorarScreenPreview() {
     FoodRescueTheme {
-        ExplorarScreen()
+        ExploreScreen()
     }
 }
 
