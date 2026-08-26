@@ -16,7 +16,7 @@ val CreamLight = Color(0xFFF8EEDE)
 
 val White = Color(0xFFFFFFFF)
 
-val TextPrimary = Color(0xFF383734)
+val TextPrimary = Color(0xFF7A7D79)
 val TextSecondary = Color(0xFF58705E)
 
 val Border = Color(0xFFE5D8B8)

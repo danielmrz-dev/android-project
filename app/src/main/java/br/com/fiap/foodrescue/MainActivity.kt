@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.fiap.foodrescue.ui.screens.auth.login.LoginScreen
+import br.com.fiap.foodrescue.ui.screens.explore.ExplorarScreen
 import br.com.fiap.foodrescue.ui.screens.home.HomeScreen
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
@@ -21,25 +22,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FoodRescueTheme {
-                LoginScreen()
-                //HomeScreen()
+                //LoginScreen()
+                HomeScreen()
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FoodRescueTheme {
-        Greeting("Android")
     }
 }
