@@ -26,20 +26,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
 fun MyBottomAppBar(
     modifier: Modifier = Modifier,
-    currentRoute: String = "Home" // Parâmetro novo!
+    currentRoute: String = stringResource(R.string.home) // Parâmetro novo!
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        color = Color.White,
+        color = MaterialTheme.colorScheme.background,
         shadowElevation = 8.dp
     ) {
         Row(
@@ -50,28 +52,30 @@ fun MyBottomAppBar(
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BottomNavItem(icon = Icons.Default.Home, label = "Home", isSelected = currentRoute == "Home", onClick = {})
-            BottomNavItem(icon = Icons.Default.Search, label = "Explorar", isSelected = currentRoute == "Explorar", onClick = {})
-
-            // Botão Central (+)
-            Box(
-                modifier = Modifier
-                    .size(52.dp)
-                    .background(color = Color(0xFF3D714B), RoundedCornerShape(16.dp))
-                    .clickable {},
-                contentAlignment = Alignment.Center,
-
-                ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "plus icon",
-                    tint = Color.White,
-                    modifier = Modifier.size(28.dp)
-                )
-            }
-
-            BottomNavItem(icon = Icons.Default.FavoriteBorder, label = "Retiradas", isSelected = currentRoute == "Retiradas", onClick = {})
-            BottomNavItem(icon = Icons.Default.PersonOutline, label = "Perfil", isSelected = currentRoute == "Perfil", onClick = {})
+            BottomNavItem(
+                icon = Icons.Default.Home,
+                label = stringResource(R.string.home),
+                isSelected = currentRoute == stringResource(R.string.home),
+                onClick = {}
+            )
+            BottomNavItem(
+                icon = Icons.Default.Search,
+                label = stringResource(R.string.explore),
+                isSelected = currentRoute == stringResource(R.string.explore),
+                onClick = {}
+            )
+            BottomNavItem(
+                icon = Icons.Default.FavoriteBorder,
+                label = stringResource(R.string.withdrawals),
+                isSelected = currentRoute == stringResource(R.string.withdrawals),
+                onClick = {}
+            )
+            BottomNavItem(
+                icon = Icons.Default.PersonOutline,
+                label = stringResource(R.string.profile),
+                isSelected = currentRoute == stringResource(R.string.profile),
+                onClick = {}
+            )
         }
     }
 }
@@ -91,12 +95,12 @@ fun BottomNavItem(
         Icon(
             imageVector = icon,
             contentDescription = label,
-            tint = if (isSelected) Color(0xFF3D714B) else MaterialTheme.colorScheme.onBackground,
+            tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.size(24.dp)
         )
         Text(
             text = label,
-            color = if (isSelected) Color(0xFF3D714B) else MaterialTheme.colorScheme.onBackground,
+            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
             fontSize = 11.sp,
             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
         )

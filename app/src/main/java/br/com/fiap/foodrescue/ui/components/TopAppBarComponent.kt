@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -38,9 +39,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
@@ -53,7 +56,8 @@ fun TopAppBarComponent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surface)
+            .statusBarsPadding()
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 20.dp, vertical = 8.dp)
     ) {
         Row(
@@ -72,13 +76,13 @@ fun TopAppBarComponent(
                     colors = CardDefaults.cardColors(containerColor = Color.Transparent),
                     border = BorderStroke(
                         width = 1.dp,
-                        color = Color(0xFFE0DACB),
+                        color = MaterialTheme.colorScheme.onSurface,
 
                         )
                 ) {
                     Image(
                         painter = painterResource(br.com.fiap.foodrescue.R.drawable.icon_app),
-                        contentDescription = "Icon app",
+                        contentDescription = stringResource(R.string.food_rescue_icon),
                     )
                 }
 
@@ -103,48 +107,11 @@ fun TopAppBarComponent(
     }
 }
 
-@Composable
-fun AppLocation(modifier: Modifier = Modifier) {
-    Box(modifier = Modifier.width(200.dp)) {
-        Column(modifier = modifier) {
-            Row(
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically // <--- Centraliza os 3 itens!
-            ) {
-                Icon(
-                    imageVector = Icons.Default.LocationOn,
-                    contentDescription = "Location icon",
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    modifier = Modifier.padding(start = 6.dp),
-                    text = "Localização",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.headlineSmall
-                )
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
-                    contentDescription = "Arrow icon",
-                    tint = MaterialTheme.colorScheme.onSurface,
-                    modifier = Modifier.padding(start = 4.dp).size(16.dp) // Diminuí um pouco a seta para ficar mais elegante
-                )
-            }
-            Row {
-                Text(
-                    modifier = Modifier.padding(start = 30.dp),
-                    text = "Vila Madalena, SP",
-                    style = MaterialTheme.typography.displaySmall
-                )
-            }
-        }
-    }
-}
-
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun TopAppBarComponentPreview() {
     FoodRescueTheme {
-        TopAppBarComponent(title = "Home")
+        TopAppBarComponent(title = stringResource(R.string.home))
     }
 }
 
@@ -164,8 +131,8 @@ fun NotificationBellWithBadge(
     ) {
         Icon(
             imageVector = Icons.Default.Notifications,
-            contentDescription = "Notificações",
-            tint = Color.Black,
+            contentDescription = stringResource(R.string.notification_icon),
+            tint = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.size(28.dp)
         )
 
@@ -175,12 +142,12 @@ fun NotificationBellWithBadge(
                 .size(18.dp)
                 .align(Alignment.TopEnd)
                 .offset(x = (-2).dp, y = 2.dp)
-                .background(Color(0xFFE86B3E), CircleShape),
+                .background(MaterialTheme.colorScheme.secondary, CircleShape),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = count,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center

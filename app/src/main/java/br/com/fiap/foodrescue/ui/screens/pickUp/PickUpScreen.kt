@@ -33,11 +33,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.components.MyBottomAppBar
 import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
@@ -48,10 +50,10 @@ fun PickUpScreen(
 ) {
     Scaffold(
         modifier = modifier
-            .fillMaxSize()
-            .statusBarsPadding(),
-        topBar = { TopAppBarComponent(title = "Retiradas") },
-        bottomBar = { MyBottomAppBar(currentRoute = "Retiradas") }
+            .fillMaxSize(),
+        containerColor = MaterialTheme.colorScheme.background,
+        topBar = { TopAppBarComponent(title = stringResource(R.string.withdrawals)) },
+        bottomBar = { MyBottomAppBar(currentRoute = stringResource(R.string.withdrawals)) }
     ) { paddingValues ->
         PickUpContentScreen(
             modifier = Modifier.padding(paddingValues)
@@ -64,13 +66,13 @@ fun PickUpContentScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.surface) // Fundo da tela Branco
+            .background(color = MaterialTheme.colorScheme.background) // Fundo da tela Branco
             .padding(horizontal = 20.dp)
     ) {
         // Subtítulo
         Text(
-            text = "Você tem 2 retiradas ativas hoje",
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            text = stringResource(R.string.you_have_2_active_withdrawals_today),
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 14.sp
         )
         
@@ -83,9 +85,9 @@ fun PickUpContentScreen(modifier: Modifier = Modifier) {
         ) {
             item {
                 PickUpCard(
-                    status = "Ativo",
+                    status = stringResource(R.string.active),
                     code = "#RV-4829",
-                    title = "Frutas Variadas",
+                    title = stringResource(R.string.mixed_fruits),
                     supplier = "Sacolão da Vila",
                     distance = "0.8km",
                     date = "14/08/2026",
@@ -95,9 +97,9 @@ fun PickUpContentScreen(modifier: Modifier = Modifier) {
             }
             item {
                 PickUpCard(
-                    status = "Ativo",
+                    status = stringResource(R.string.active),
                     code = "#PA-3124",
-                    title = "Pães Artesanais",
+                    title = stringResource(R.string.artisan_breads),
                     supplier = "Padaria Pão & Arte",
                     distance = "1.2km",
                     date = "14/08/2026",
@@ -123,8 +125,8 @@ fun PickUpCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        border = BorderStroke(1.dp, Color(0xFFE5DECF))
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface)
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             // Top Row: Tag "Ativo" and Code
@@ -136,7 +138,7 @@ fun PickUpCard(
                 // Tag Ativo
                 Box(
                     modifier = Modifier
-                        .background(Color(0xFFE8ECE9), RoundedCornerShape(12.dp))
+                        .background(MaterialTheme.colorScheme.onTertiary, RoundedCornerShape(12.dp))
                         .padding(horizontal = 12.dp, vertical = 4.dp)
                 ) {
                     Text(
@@ -148,7 +150,7 @@ fun PickUpCard(
                 }
                 Text(
                     text = "Código: $code",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 12.sp
                 )
             }
@@ -160,11 +162,11 @@ fun PickUpCard(
                 text = title,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.secondary
             )
             Text(
-                text = "$supplier - $distance de distância",
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                text = stringResource(R.string.away, supplier, distance),
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 13.sp
             )
             
@@ -172,19 +174,19 @@ fun PickUpCard(
             
             // Datas e Horários
             Text(
-                text = "Válido até: $date",
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                text = stringResource(R.string.valid_until, date),
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 12.sp
             )
             Row {
                 Text(
-                    text = "Horário máximo: ",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    text = stringResource(R.string.latest_time),
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 12.sp
                 )
                 Text(
                     text = time,
-                    color = Color(0xFFE86B3E), // Laranja do tema
+                    color = MaterialTheme.colorScheme.secondary, // Laranja do tema
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -197,30 +199,34 @@ fun PickUpCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(180.dp)
-                    .background(Color(0xFFE8ECE9), RoundedCornerShape(16.dp)),
+                    .background(MaterialTheme.colorScheme.background, RoundedCornerShape(16.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 if (hasQrCodeImage) {
                     Box(
                         modifier = Modifier
                             .size(100.dp)
-                            .background(Color.White, RoundedCornerShape(8.dp))
-                            .border(1.dp, Color(0xFFE5DECF), RoundedCornerShape(8.dp)),
+                            .background(MaterialTheme.colorScheme.background, RoundedCornerShape(8.dp))
+                            .border(1.dp, MaterialTheme.colorScheme.onSurface, RoundedCornerShape(8.dp)),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.QrCode2,
-                            contentDescription = "QR Code",
+                            contentDescription = stringResource(R.string.qr_code),
                             modifier = Modifier.size(80.dp),
-                            tint = Color.Black
+                            tint = MaterialTheme.colorScheme.onBackground
                         )
                     }
                 } else {
                     Box(
                         modifier = Modifier
                             .size(100.dp)
-                            .background(Color.White, RoundedCornerShape(8.dp))
-                            .border(2.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(8.dp))
+                            .background(MaterialTheme.colorScheme.background, RoundedCornerShape(8.dp))
+                            .border(
+                                2.dp,
+                                MaterialTheme.colorScheme.onSurface,
+                                RoundedCornerShape(8.dp)
+                            )
                     )
                 }
             }
@@ -228,8 +234,8 @@ fun PickUpCard(
             Spacer(modifier = Modifier.height(12.dp))
             
             Text(
-                text = "Apresente esse QR-code no local de retirada",
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                text = stringResource(R.string.present_this_qr_code_at_the_pickup_location),
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 11.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -241,7 +247,7 @@ fun PickUpCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { /* Navegação para local */ },
+                    .clickable {},
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -253,7 +259,7 @@ fun PickUpCard(
                 )
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
-                    text = "Vá até o local e retire agora",
+                    text = stringResource(R.string.go_to_the_location_and_pick_it_up_now),
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold

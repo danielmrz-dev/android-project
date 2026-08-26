@@ -1,5 +1,6 @@
 package br.com.fiap.foodrescue.ui.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,12 +20,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.background
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import br.com.fiap.foodrescue.R
+import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
 fun MyLocation(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.surface)
+            .background(Color.Transparent)
             .clickable {}
     ) {
         Row(
@@ -33,28 +38,39 @@ fun MyLocation(modifier: Modifier = Modifier) {
         ) {
             Icon(
                 imageVector = Icons.Default.LocationOn,
-                contentDescription = "Ícone Localização",
-                tint = MaterialTheme.colorScheme.onBackground,
+                contentDescription = stringResource(R.string.location_icon),
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.size(15.dp)
             )
             Text(
-                text = "Localização",
-                color = MaterialTheme.colorScheme.onBackground,
+                text = stringResource(R.string.location),
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
             )
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
-                contentDescription = "Seta",
-                tint = MaterialTheme.colorScheme.onBackground,
+                contentDescription = stringResource(R.string.arrow_icon),
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.size(9.dp)
             )
         }
         Text(
-            text = "Vila Madalena, SP",
-            color = Color.Black,
+            text = stringResource(R.string.vila_madalena_sp),
+            color = MaterialTheme.colorScheme.onBackground,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold
         )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Composable
+private fun MyLocationPreview() {
+    FoodRescueTheme() {
+        MyLocation()
     }
 }

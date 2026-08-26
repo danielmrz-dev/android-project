@@ -1,8 +1,10 @@
 package br.com.fiap.foodrescue.ui.screens.explore
 
+import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -33,19 +36,19 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.fiap.foodrescue.R
-import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
 import br.com.fiap.foodrescue.ui.components.MyBottomAppBar
 import br.com.fiap.foodrescue.ui.components.SearchBarComponent
-import br.com.fiap.foodrescue.ui.theme.Disabled
+import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
-fun ExplorarScreen(
+fun ExploreScreen(
     modifier: Modifier = Modifier,
     onNavigateToHome: () -> Unit = {},
     onNavigateToRetiradas: () -> Unit = {},
@@ -53,10 +56,10 @@ fun ExplorarScreen(
 ) {
     Scaffold(
         modifier = modifier
-            .fillMaxSize()
-            .statusBarsPadding(),
-        topBar = { TopAppBarComponent(title = "Explorar") },
-        bottomBar = { MyBottomAppBar(currentRoute = "Explorar") }
+            .fillMaxSize(),
+        containerColor = MaterialTheme.colorScheme.background,
+        topBar = { TopAppBarComponent(title = stringResource(R.string.explore)) },
+        bottomBar = { MyBottomAppBar(currentRoute = stringResource(R.string.explore)) }
     ) { paddingValues ->
         ExploreContentScreen(
             modifier = Modifier.padding(paddingValues)
@@ -64,11 +67,14 @@ fun ExplorarScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
 @Composable
 private fun ExplorarScreenPreview() {
     FoodRescueTheme {
-        ExplorarScreen()
+        ExploreScreen()
     }
 }
 
@@ -78,11 +84,16 @@ fun ExploreContentScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.surface) // Fundo da tela Branco
+            .background(color = MaterialTheme.colorScheme.background) // Fundo da tela Branco
             .padding(horizontal = 16.dp)
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         SearchBarComponent()
+        HorizontalDivider(
+            modifier = Modifier.padding(top = 12.dp),
+            thickness = 1.dp,
+            color = MaterialTheme.colorScheme.onSurface
+        )
         Spacer(modifier = Modifier.height(12.dp))
         FilterChipsSection()
         Spacer(modifier = Modifier.height(16.dp))
@@ -93,22 +104,27 @@ fun ExploreContentScreen(modifier: Modifier = Modifier) {
 
 @Composable
 private fun FilterChipsSection() {
-    val filters = listOf("Tudo", "Hortifruti", "Panificacao", "Laticinios")
-    var selectedFilter by remember { mutableStateOf("Tudo") }
+    val filters = listOf(
+        stringResource(R.string.all),
+        stringResource(R.string.produce),
+        stringResource(R.string.baking),
+        stringResource(R.string.dairy)
+    )
+    var selectedFilter by remember { mutableStateOf("All") }
     LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         items(filters) { filter ->
             val isSelected = filter == selectedFilter
             Surface(
                 shape = RoundedCornerShape(16.dp),
-                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSecondary,
                 shadowElevation = if (isSelected) 4.dp else 0.dp,
-                border = if (!isSelected) BorderStroke(1.dp, Disabled) else null,
+                border = if (!isSelected) BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface) else null,
                 modifier = Modifier.padding(vertical = 4.dp),
                 onClick = { selectedFilter = filter }
             ) {
                 Text(
                     text = filter,
-                    color = if (isSelected) Color.White else Disabled,
+                    color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                     fontSize = 14.sp
                 )
@@ -120,10 +136,34 @@ private fun FilterChipsSection() {
 @Composable
 private fun DonationListSection(modifier: Modifier = Modifier) {
     val donations = listOf(
-        DonationItem("Frutas Variadas", "Sacola da Vila", "5 un. disponíveis", "0.8km", imageRes = R.drawable.fruits),
-        DonationItem("Pães Artesanais", "Padaria Pão & Arte", "10 un. disponíveis", "1.2km", imageRes = R.drawable.bread),
-        DonationItem("Marmitas Prontas", "Restaurante Sabor da Terra", "6 un. disponíveis", "1.5km", imageRes = R.drawable.marmita),
-        DonationItem("Legumes Frescos", "Horta Comunitária", "2 un. disponíveis", "2.0km", imageRes = R.drawable.legumes)
+        DonationItem(
+            stringResource(R.string.mixed_fruits),
+            "Sacola da Vila",
+            stringResource(R.string._5_units_available),
+            "0.8km",
+            imageRes = R.drawable.fruits
+        ),
+        DonationItem(
+            stringResource(R.string.artisan_breads),
+            "Padaria Pão & Arte",
+            stringResource(R.string._10_units_available),
+            "1.2km",
+            imageRes = R.drawable.bread
+        ),
+        DonationItem(
+            stringResource(R.string.ready_meals),
+            "Restaurante Sabor da Terra",
+            stringResource(R.string._6_units_available),
+            "1.5km",
+            imageRes = R.drawable.marmita
+        ),
+        DonationItem(
+            stringResource(R.string.fresh_vegetables),
+            "Horta Comunitária",
+            stringResource(R.string._2_units_available),
+            "2.0km",
+            imageRes = R.drawable.legumes
+        )
     )
 
     LazyColumn(
@@ -141,9 +181,10 @@ private fun DonationListSection(modifier: Modifier = Modifier) {
 private fun DonationCard(item: DonationItem) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.background,
         shadowElevation = 4.dp,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.outline)
     ) {
         androidx.compose.foundation.layout.Row(
             modifier = Modifier
@@ -167,7 +208,7 @@ private fun DonationCard(item: DonationItem) {
                     Box(
                         modifier = Modifier
                             .matchParentSize()
-                            .background(MaterialTheme.colorScheme.primaryContainer)
+                            .background(MaterialTheme.colorScheme.background)
                     )
                 }
             }
@@ -178,17 +219,18 @@ private fun DonationCard(item: DonationItem) {
                 Text(
                     text = item.title,
                     fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.titleSmall
                 )
                 Text(
                     text = item.supplier,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodySmall
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = item.quantity,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.secondary,
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -196,12 +238,12 @@ private fun DonationCard(item: DonationItem) {
             Column(horizontalAlignment = Alignment.End) {
                 Text(
                     text = item.distance,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodySmall
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "Resgatar >",
+                    text = stringResource(R.string.rescue),
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.bodySmall
