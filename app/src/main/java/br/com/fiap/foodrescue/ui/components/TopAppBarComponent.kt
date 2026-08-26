@@ -55,7 +55,7 @@ fun TopAppBarComponent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surface)
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 20.dp, vertical = 8.dp)
     ) {
         Row(
@@ -74,7 +74,7 @@ fun TopAppBarComponent(
                     colors = CardDefaults.cardColors(containerColor = Color.Transparent),
                     border = BorderStroke(
                         width = 1.dp,
-                        color = Color(0xFFE0DACB),
+                        color = MaterialTheme.colorScheme.onSurface,
 
                         )
                 ) {
@@ -130,7 +130,7 @@ fun NotificationBellWithBadge(
         Icon(
             imageVector = Icons.Default.Notifications,
             contentDescription = stringResource(R.string.notification_icon),
-            tint = Color.Black,
+            tint = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.size(28.dp)
         )
 
@@ -140,12 +140,12 @@ fun NotificationBellWithBadge(
                 .size(18.dp)
                 .align(Alignment.TopEnd)
                 .offset(x = (-2).dp, y = 2.dp)
-                .background(Color(0xFFE86B3E), CircleShape),
+                .background(MaterialTheme.colorScheme.secondary, CircleShape),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = count,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center

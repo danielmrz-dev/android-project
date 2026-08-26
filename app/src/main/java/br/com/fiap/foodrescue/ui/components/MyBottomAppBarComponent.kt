@@ -41,7 +41,7 @@ fun MyBottomAppBar(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        color = Color.White,
+        color = MaterialTheme.colorScheme.background,
         shadowElevation = 8.dp
     ) {
         Row(
@@ -95,12 +95,12 @@ fun BottomNavItem(
         Icon(
             imageVector = icon,
             contentDescription = label,
-            tint = if (isSelected) Color(0xFF3D714B) else MaterialTheme.colorScheme.onBackground,
+            tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.size(24.dp)
         )
         Text(
             text = label,
-            color = if (isSelected) Color(0xFF3D714B) else MaterialTheme.colorScheme.onBackground,
+            color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
             fontSize = 11.sp,
             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
         )

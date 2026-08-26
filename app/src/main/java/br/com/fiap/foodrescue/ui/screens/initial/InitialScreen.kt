@@ -61,7 +61,7 @@ fun InitialScreen(modifier: Modifier = Modifier) {
                     .weight(1f)
                     .verticalScroll(rememberScrollState())
                     .background(
-                        color = Color.White
+                        color = MaterialTheme.colorScheme.background
                     ),
                 Alignment.Center
 
@@ -89,7 +89,7 @@ fun InitialScreen(modifier: Modifier = Modifier) {
                             modifier = Modifier
                                 .matchParentSize()
                                 .background(
-                                    color = Color.White,
+                                    color = MaterialTheme.colorScheme.background,
                                     shape = RoundedCornerShape(20.dp)
                                 ),
                             contentAlignment = Alignment.Center

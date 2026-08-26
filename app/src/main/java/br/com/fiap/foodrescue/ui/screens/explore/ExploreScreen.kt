@@ -1,8 +1,10 @@
 package br.com.fiap.foodrescue.ui.screens.explore
 
+import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +20,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -39,10 +42,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.fiap.foodrescue.R
-import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
 import br.com.fiap.foodrescue.ui.components.MyBottomAppBar
 import br.com.fiap.foodrescue.ui.components.SearchBarComponent
-import br.com.fiap.foodrescue.ui.theme.Disabled
+import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
@@ -56,6 +58,7 @@ fun ExploreScreen(
         modifier = modifier
             .fillMaxSize()
             .statusBarsPadding(),
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = { TopAppBarComponent(title = stringResource(R.string.explore)) },
         bottomBar = { MyBottomAppBar(currentRoute = stringResource(R.string.explore)) }
     ) { paddingValues ->
@@ -65,7 +68,10 @@ fun ExploreScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
 @Composable
 private fun ExplorarScreenPreview() {
     FoodRescueTheme {
@@ -79,11 +85,16 @@ fun ExploreContentScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.surface) // Fundo da tela Branco
+            .background(color = MaterialTheme.colorScheme.background) // Fundo da tela Branco
             .padding(horizontal = 16.dp)
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         SearchBarComponent()
+        HorizontalDivider(
+            modifier = Modifier.padding(top = 12.dp),
+            thickness = 1.dp,
+            color = MaterialTheme.colorScheme.onSurface
+        )
         Spacer(modifier = Modifier.height(12.dp))
         FilterChipsSection()
         Spacer(modifier = Modifier.height(16.dp))
@@ -106,15 +117,15 @@ private fun FilterChipsSection() {
             val isSelected = filter == selectedFilter
             Surface(
                 shape = RoundedCornerShape(16.dp),
-                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+                color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSecondary,
                 shadowElevation = if (isSelected) 4.dp else 0.dp,
-                border = if (!isSelected) BorderStroke(1.dp, Disabled) else null,
+                border = if (!isSelected) BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface) else null,
                 modifier = Modifier.padding(vertical = 4.dp),
                 onClick = { selectedFilter = filter }
             ) {
                 Text(
                     text = filter,
-                    color = if (isSelected) Color.White else Disabled,
+                    color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                     fontSize = 14.sp
                 )
@@ -171,9 +182,10 @@ private fun DonationListSection(modifier: Modifier = Modifier) {
 private fun DonationCard(item: DonationItem) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.background,
         shadowElevation = 4.dp,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.outline)
     ) {
         androidx.compose.foundation.layout.Row(
             modifier = Modifier
@@ -197,7 +209,7 @@ private fun DonationCard(item: DonationItem) {
                     Box(
                         modifier = Modifier
                             .matchParentSize()
-                            .background(MaterialTheme.colorScheme.primaryContainer)
+                            .background(MaterialTheme.colorScheme.background)
                     )
                 }
             }
@@ -208,17 +220,18 @@ private fun DonationCard(item: DonationItem) {
                 Text(
                     text = item.title,
                     fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onBackground,
                     style = MaterialTheme.typography.titleSmall
                 )
                 Text(
                     text = item.supplier,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodySmall
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = item.quantity,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.secondary,
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -226,7 +239,7 @@ private fun DonationCard(item: DonationItem) {
             Column(horizontalAlignment = Alignment.End) {
                 Text(
                     text = item.distance,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurface,
                     style = MaterialTheme.typography.bodySmall
                 )
                 Spacer(modifier = Modifier.height(16.dp))

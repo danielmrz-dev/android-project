@@ -1,5 +1,6 @@
 package br.com.fiap.foodrescue.ui.screens.auth.login
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +25,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
@@ -66,7 +68,7 @@ fun LoginScreen() {
                     .weight(1f)
                     .verticalScroll(rememberScrollState())
                     .background(
-                        color = Color.White
+                        color = MaterialTheme.colorScheme.background
                     ),
                 Alignment.Center
 
@@ -94,7 +96,7 @@ fun LoginScreen() {
                             modifier = Modifier
                                 .matchParentSize()
                                 .background(
-                                    color = Color.White,
+                                    color = MaterialTheme.colorScheme.background,
                                     shape = RoundedCornerShape(20.dp)
                                 ),
                             contentAlignment = Alignment.Center
@@ -147,10 +149,18 @@ fun LoginScreen() {
                             Icon(
                                 imageVector = Icons.Default.Email,
                                 contentDescription = stringResource(R.string.email_icon),
-                                modifier = Modifier.padding(8.dp)
+                                modifier = Modifier.padding(8.dp),
+                                tint = MaterialTheme.colorScheme.tertiary
                             )
                         },
-                        label = { Text(stringResource(R.string.email)) },
+                        label = { Text(stringResource(R.string.email), color = MaterialTheme.colorScheme.primary) },
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            unfocusedBorderColor = Color.Transparent,
+                            focusedContainerColor = MaterialTheme.colorScheme.surface,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                        ),
+                        shape = RoundedCornerShape(26.dp),
                         value = email,
                         onValueChange = { email = it },
                         modifier = Modifier.fillMaxWidth()
@@ -163,10 +173,18 @@ fun LoginScreen() {
                             Icon(
                                 imageVector = Icons.Default.Password,
                                 contentDescription = stringResource(R.string.password_icon),
-                                modifier = Modifier.padding(8.dp)
+                                modifier = Modifier.padding(8.dp),
+                                tint = MaterialTheme.colorScheme.tertiary
                             )
                         },
-                        label = { Text(stringResource(R.string.password)) },
+                        label = { Text(stringResource(R.string.password), color = MaterialTheme.colorScheme.primary) },
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = MaterialTheme.colorScheme.primary,
+                            unfocusedBorderColor = Color.Transparent,
+                            focusedContainerColor = MaterialTheme.colorScheme.surface,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                        ),
+                        shape = RoundedCornerShape(26.dp),
                         value = password,
                         onValueChange = { password = it },
                         modifier = Modifier.fillMaxWidth()
@@ -180,7 +198,11 @@ fun LoginScreen() {
 
                         }
                     ) {
-                        Text(stringResource(R.string.sign_in))
+                        Text(
+                            text = stringResource(R.string.sign_in),
+                            style = MaterialTheme.typography.headlineSmall,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -200,7 +222,10 @@ fun LoginScreen() {
     }
 }
 
-@Preview
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
 @Composable
 private fun LoginScreenPreview() {
     FoodRescueTheme {

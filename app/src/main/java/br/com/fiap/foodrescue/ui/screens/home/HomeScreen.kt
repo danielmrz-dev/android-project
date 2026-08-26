@@ -1,5 +1,6 @@
 package br.com.fiap.foodrescue.ui.screens.home
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -49,6 +50,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.components.MyBottomAppBar
+import br.com.fiap.foodrescue.ui.components.SearchBarComponent
 import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
@@ -58,7 +60,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .statusBarsPadding(), // Respeita a barra de status no topo
-        containerColor = MaterialTheme.colorScheme.surface,
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = { MyTopAppBar() },
         bottomBar = { MyBottomAppBar() }
     ) { paddingValues ->
@@ -85,40 +87,11 @@ fun MyTopAppBar(modifier: Modifier = Modifier) {
         HorizontalDivider(
             modifier = Modifier.padding(top = 4.dp, bottom = 12.dp),
             thickness = 1.dp,
-            color = Color(0xFFE5DECF)
+            color = MaterialTheme.colorScheme.onSurface
         )
 
         // Barra de Pesquisa
-        OutlinedTextField(
-            value = searchQuery,
-            onValueChange = { searchQuery = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(52.dp),
-            placeholder = {
-                Text(
-                    text = stringResource(R.string.search_for_donations_near_you),
-                    color = MaterialTheme.colorScheme.onBackground,
-                    fontSize = 14.sp
-                )
-            },
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = stringResource(R.string.search_icon),
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
-            },
-            shape = RoundedCornerShape(26.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
-                cursorColor = MaterialTheme.colorScheme.onPrimary
-            ),
-            singleLine = true
-        )
+        SearchBarComponent()
     }
 }
 
@@ -145,7 +118,7 @@ fun ImpactCard() {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimaryContainer)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
     ) {
         Column(
             modifier = Modifier
@@ -162,19 +135,19 @@ fun ImpactCard() {
                 Box(
                     modifier = Modifier
                         .size(26.dp)
-                        .background(Color(0xFFE86B3E), CircleShape),
+                        .background(MaterialTheme.colorScheme.secondary, CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Default.Groups,
                         contentDescription = null,
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(15.dp)
                     )
                 }
                 Text(
                     text = stringResource(R.string.your_impact_today),
-                    color = Color(0xFFD6E3DB),
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp
@@ -185,7 +158,7 @@ fun ImpactCard() {
 
             Text(
                 text = stringResource(R.string._127_meals_rescued),
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif,
@@ -193,7 +166,7 @@ fun ImpactCard() {
             )
             Text(
                 text = stringResource(R.string.in_your_community_this_week),
-                color = Color(0xFFC0D2C7),
+                color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 13.sp,
                 textAlign = TextAlign.Center
             )
@@ -202,7 +175,7 @@ fun ImpactCard() {
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround
+                horizontalArrangement = Arrangement.SpaceAround,
             ) {
                 StatItem(value = "48", label = stringResource(R.string.donors))
                 StatItem(value = "312kg", label = stringResource(R.string.rescued))
@@ -218,14 +191,14 @@ fun StatItem(value: String, label: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = value,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onPrimary,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Serif
         )
         Text(
             text = label,
-            color = Color(0xFFA5BFA9),
+            color = MaterialTheme.colorScheme.onPrimary,
             fontSize = 12.sp
         )
     }
@@ -237,7 +210,7 @@ fun RequestsCard() {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiary)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary)
     ) {
         Column(
             modifier = Modifier
@@ -253,19 +226,19 @@ fun RequestsCard() {
                 Box(
                     modifier = Modifier
                         .size(26.dp)
-                        .background(Color(0xFF5E8B6F), CircleShape),
+                        .background(MaterialTheme.colorScheme.primary, CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Default.Groups,
                         contentDescription = null,
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(15.dp)
                     )
                 }
                 Text(
                     text = stringResource(R.string.your_requests),
-                    color = Color(0xFFFFDEC9),
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp
@@ -276,7 +249,7 @@ fun RequestsCard() {
 
             Text(
                 text = stringResource(R.string.you_have_2_active_withdrawal_requests),
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onPrimary,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif,
@@ -293,14 +266,14 @@ fun RequestsCard() {
             ) {
                 Text(
                     text = stringResource(R.string.go_to_the_location_and_pick_it_up_now),
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                     contentDescription = null,
-                    tint = Color.White,
+                    tint = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier.size(16.dp)
                 )
             }
@@ -316,18 +289,18 @@ fun MapPreviewCard() {
             .fillMaxWidth()
             .height(280.dp),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color(0xFFE8ECE9)),
+                    .background(MaterialTheme.colorScheme.onSurface),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = stringResource(R.string.map_preview),
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = Color.Black,
                     fontSize = 14.sp
                 )
             }
@@ -348,14 +321,14 @@ fun MapPreviewCard() {
                 ) {
                     Text(
                         text = stringResource(R.string.find_donations_near_you),
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                         contentDescription = null,
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(16.dp)
                     )
                 }
@@ -364,7 +337,11 @@ fun MapPreviewCard() {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(
+    showBackground = true,
+    showSystemUi = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
 @Composable
 private fun HomeScreenPreview() {
     FoodRescueTheme {

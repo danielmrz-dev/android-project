@@ -52,6 +52,7 @@ fun PickUpScreen(
         modifier = modifier
             .fillMaxSize()
             .statusBarsPadding(),
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = { TopAppBarComponent(title = stringResource(R.string.withdrawals)) },
         bottomBar = { MyBottomAppBar(currentRoute = stringResource(R.string.withdrawals)) }
     ) { paddingValues ->
@@ -66,13 +67,13 @@ fun PickUpContentScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.surface) // Fundo da tela Branco
+            .background(color = MaterialTheme.colorScheme.background) // Fundo da tela Branco
             .padding(horizontal = 20.dp)
     ) {
         // Subtítulo
         Text(
             text = stringResource(R.string.you_have_2_active_withdrawals_today),
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 14.sp
         )
         
@@ -125,8 +126,8 @@ fun PickUpCard(
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        border = BorderStroke(1.dp, Color(0xFFE5DECF))
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface)
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             // Top Row: Tag "Ativo" and Code
@@ -138,7 +139,7 @@ fun PickUpCard(
                 // Tag Ativo
                 Box(
                     modifier = Modifier
-                        .background(Color(0xFFE8ECE9), RoundedCornerShape(12.dp))
+                        .background(MaterialTheme.colorScheme.onTertiary, RoundedCornerShape(12.dp))
                         .padding(horizontal = 12.dp, vertical = 4.dp)
                 ) {
                     Text(
@@ -150,7 +151,7 @@ fun PickUpCard(
                 }
                 Text(
                     text = "Código: $code",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 12.sp
                 )
             }
@@ -162,11 +163,11 @@ fun PickUpCard(
                 text = title,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.secondary
             )
             Text(
                 text = stringResource(R.string.away, supplier, distance),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 13.sp
             )
             
@@ -175,18 +176,18 @@ fun PickUpCard(
             // Datas e Horários
             Text(
                 text = stringResource(R.string.valid_until, date),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 12.sp
             )
             Row {
                 Text(
                     text = stringResource(R.string.latest_time),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 12.sp
                 )
                 Text(
                     text = time,
-                    color = Color(0xFFE86B3E), // Laranja do tema
+                    color = MaterialTheme.colorScheme.secondary, // Laranja do tema
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -199,32 +200,32 @@ fun PickUpCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(180.dp)
-                    .background(Color(0xFFE8ECE9), RoundedCornerShape(16.dp)),
+                    .background(MaterialTheme.colorScheme.background, RoundedCornerShape(16.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 if (hasQrCodeImage) {
                     Box(
                         modifier = Modifier
                             .size(100.dp)
-                            .background(Color.White, RoundedCornerShape(8.dp))
-                            .border(1.dp, Color(0xFFE5DECF), RoundedCornerShape(8.dp)),
+                            .background(MaterialTheme.colorScheme.background, RoundedCornerShape(8.dp))
+                            .border(1.dp, MaterialTheme.colorScheme.onSurface, RoundedCornerShape(8.dp)),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.QrCode2,
                             contentDescription = stringResource(R.string.qr_code),
                             modifier = Modifier.size(80.dp),
-                            tint = Color.Black
+                            tint = MaterialTheme.colorScheme.onBackground
                         )
                     }
                 } else {
                     Box(
                         modifier = Modifier
                             .size(100.dp)
-                            .background(Color.White, RoundedCornerShape(8.dp))
+                            .background(MaterialTheme.colorScheme.background, RoundedCornerShape(8.dp))
                             .border(
                                 2.dp,
-                                MaterialTheme.colorScheme.primary,
+                                MaterialTheme.colorScheme.onSurface,
                                 RoundedCornerShape(8.dp)
                             )
                     )
@@ -235,7 +236,7 @@ fun PickUpCard(
             
             Text(
                 text = stringResource(R.string.present_this_qr_code_at_the_pickup_location),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 11.sp,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center

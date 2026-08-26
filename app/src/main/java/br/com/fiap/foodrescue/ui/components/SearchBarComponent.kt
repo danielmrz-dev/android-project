@@ -36,15 +36,15 @@ fun SearchBarComponent(
         singleLine = true,
         shape = androidx.compose.foundation.shape.CircleShape,
         colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
             unfocusedBorderColor = Color.Transparent,
-            focusedBorderColor = Color.Transparent,
-            unfocusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-            focusedContainerColor = MaterialTheme.colorScheme.primaryContainer
+            focusedContainerColor = MaterialTheme.colorScheme.surface,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
         ),
         placeholder = {
             Text(
                 text = placeholder,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyMedium
             )
         },
@@ -52,7 +52,7 @@ fun SearchBarComponent(
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = stringResource(R.string.search_icon),
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                tint = MaterialTheme.colorScheme.onSurface
             )
         }
     )

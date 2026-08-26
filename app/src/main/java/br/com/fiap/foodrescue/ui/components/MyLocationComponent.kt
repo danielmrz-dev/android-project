@@ -1,5 +1,6 @@
 package br.com.fiap.foodrescue.ui.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,7 +29,7 @@ import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 fun MyLocation(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .background(MaterialTheme.colorScheme.surface)
+            .background(Color.Transparent)
             .clickable {}
     ) {
         Row(
@@ -38,32 +39,35 @@ fun MyLocation(modifier: Modifier = Modifier) {
             Icon(
                 imageVector = Icons.Default.LocationOn,
                 contentDescription = stringResource(R.string.location_icon),
-                tint = MaterialTheme.colorScheme.onBackground,
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.size(15.dp)
             )
             Text(
                 text = stringResource(R.string.location),
-                color = MaterialTheme.colorScheme.onBackground,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
             )
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
                 contentDescription = stringResource(R.string.arrow_icon),
-                tint = MaterialTheme.colorScheme.onBackground,
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.size(9.dp)
             )
         }
         Text(
             text = stringResource(R.string.vila_madalena_sp),
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.onBackground,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold
         )
     }
 }
 
-@Preview
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
 @Composable
 private fun MyLocationPreview() {
     FoodRescueTheme() {
