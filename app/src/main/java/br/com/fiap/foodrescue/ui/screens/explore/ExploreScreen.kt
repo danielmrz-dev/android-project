@@ -56,8 +56,7 @@ fun ExploreScreen(
 ) {
     Scaffold(
         modifier = modifier
-            .fillMaxSize()
-            .statusBarsPadding(),
+            .fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = { TopAppBarComponent(title = stringResource(R.string.explore)) },
         bottomBar = { MyBottomAppBar(currentRoute = stringResource(R.string.explore)) }

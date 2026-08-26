@@ -50,8 +50,7 @@ fun PickUpScreen(
 ) {
     Scaffold(
         modifier = modifier
-            .fillMaxSize()
-            .statusBarsPadding(),
+            .fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = { TopAppBarComponent(title = stringResource(R.string.withdrawals)) },
         bottomBar = { MyBottomAppBar(currentRoute = stringResource(R.string.withdrawals)) }

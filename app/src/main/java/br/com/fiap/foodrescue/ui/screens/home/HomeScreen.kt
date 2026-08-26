@@ -58,15 +58,14 @@ import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 fun HomeScreen(modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier
-            .fillMaxSize()
-            .statusBarsPadding(), // Respeita a barra de status no topo
+            .fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = { MyTopAppBar() },
         bottomBar = { MyBottomAppBar() }
-    ) { paddingValues ->
+    ) { innerPadding ->
         ContentScreen(
             modifier = Modifier
-                .padding(paddingValues)
+                .padding(innerPadding)
                 .fillMaxSize()
         )
     }
@@ -340,7 +339,7 @@ fun MapPreviewCard() {
 @Preview(
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
+    uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
 private fun HomeScreenPreview() {

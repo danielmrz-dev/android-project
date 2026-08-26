@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -55,6 +56,7 @@ fun TopAppBarComponent(
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .statusBarsPadding()
             .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 20.dp, vertical = 8.dp)
     ) {
@@ -105,7 +107,7 @@ fun TopAppBarComponent(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 private fun TopAppBarComponentPreview() {
     FoodRescueTheme {

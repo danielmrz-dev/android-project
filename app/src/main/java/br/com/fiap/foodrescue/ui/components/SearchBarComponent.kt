@@ -1,6 +1,7 @@
 package br.com.fiap.foodrescue.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -30,7 +31,7 @@ fun SearchBarComponent(
     var query by remember { mutableStateOf("") }
 
     OutlinedTextField(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().padding(bottom = 8.dp),
         value = query,
         onValueChange = { query = it },
         singleLine = true,

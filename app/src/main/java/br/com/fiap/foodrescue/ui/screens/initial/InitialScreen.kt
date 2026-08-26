@@ -48,7 +48,6 @@ fun InitialScreen(modifier: Modifier = Modifier) {
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding()
     ) {
             innerPadding ->
         Column(
