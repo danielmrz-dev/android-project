@@ -28,7 +28,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.Contrast
@@ -48,29 +47,27 @@ import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -80,49 +77,29 @@ import androidx.compose.ui.unit.sp
 import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
-@Immutable
-data class ProfileUiState(
-    val name: String = "Carol Silva",
-    val location: String = "Vila Madalena, SP",
-    val level: String = "Eco-Herói",
-    val streakDays: Int = 14,
-    val notificationCount: Int = 3,
-    val mealsSaved: Int = 145,
-    val foodSavedKg: Int = 360,
-    val co2AvoidedKg: Int = 62
-)
-
-enum class ProfileDestination { HOME, EXPLORE, ADD, PICKUPS, PROFILE }
-
-private val ProfileLightColorScheme = lightColorScheme(
+private val ProfileLightColors = lightColorScheme(
     primary = Color(0xFF3D714B),
     onPrimary = Color.White,
-    primaryContainer = Color(0xFFEAF2EC),
-    onPrimaryContainer = Color(0xFF315B3C),
     secondary = Color(0xFFFF773C),
     onSecondary = Color.White,
     background = Color(0xFFF4E9CE),
-    onBackground = Color(0xFF1D1B20),
     surface = Color.White,
-    onSurface = Color(0xFF1D1B20),
     surfaceVariant = Color.White,
+    onSurface = Color(0xFF1D1B20),
     onSurfaceVariant = Color(0xFF8E8E93),
     outline = Color(0xFFDCEBE5),
     error = Color(0xFFD32F2F)
 )
 
-private val ProfileDarkColorScheme = darkColorScheme(
+private val ProfileDarkColors = darkColorScheme(
     primary = Color(0xFF4DBD78),
     onPrimary = Color.White,
-    primaryContainer = Color(0xFF17251B),
-    onPrimaryContainer = Color(0xFF4DBD78),
     secondary = Color(0xFFD9824A),
     onSecondary = Color.White,
     background = Color(0xFF1A1A1A),
-    onBackground = Color(0xFFF7F7F7),
     surface = Color(0xFF252525),
-    onSurface = Color(0xFFF7F7F7),
     surfaceVariant = Color(0xFF171A18),
+    onSurface = Color(0xFFF7F7F7),
     onSurfaceVariant = Color(0xFFA7A7A7),
     outline = Color(0xFF214F30),
     error = Color(0xFFFF5C5C)
@@ -131,28 +108,11 @@ private val ProfileDarkColorScheme = darkColorScheme(
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
-    state: ProfileUiState = ProfileUiState(),
-    onLocationClick: () -> Unit = {},
-    onNotificationsClick: () -> Unit = {},
-    onThemeToggleClick: () -> Unit = {},
-    onLogoutClick: () -> Unit = {},
-    onAccountSettingsClick: () -> Unit = {},
-    onPickupHistoryClick: () -> Unit = {},
-    onPrivacyPolicyClick: () -> Unit = {},
-    onAboutClick: () -> Unit = {},
-    onDestinationClick: (ProfileDestination) -> Unit = {}
+    onThemeClick: () -> Unit = {}
 ) {
-    val profileColorScheme = if (isSystemInDarkTheme()) {
-        ProfileDarkColorScheme
-    } else {
-        ProfileLightColorScheme
-    }
-    val projectTypography = MaterialTheme.typography
+    val colors = if (isSystemInDarkTheme()) ProfileDarkColors else ProfileLightColors
 
-    MaterialTheme(
-        colorScheme = profileColorScheme,
-        typography = projectTypography
-    ) {
+    MaterialTheme(colorScheme = colors, typography = MaterialTheme.typography) {
         Box(
             modifier = modifier
                 .fillMaxSize()
@@ -169,42 +129,20 @@ fun ProfileScreen(
             ) {
                 Scaffold(
                     containerColor = MaterialTheme.colorScheme.surface,
-                    bottomBar = { ProfileBottomBar(onDestinationClick) }
-                ) { innerPadding ->
+                    bottomBar = { ProfileBottomBar() }
+                ) { paddingValues ->
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(innerPadding),
+                            .padding(paddingValues),
                         contentPadding = PaddingValues(15.dp, 11.dp, 15.dp, 16.dp),
                         verticalArrangement = Arrangement.spacedBy(14.dp)
                     ) {
-                        item {
-                            ProfileHeader(
-                                location = state.location,
-                                notificationCount = state.notificationCount,
-                                onLocationClick = onLocationClick,
-                                onThemeToggleClick = onThemeToggleClick,
-                                onNotificationsClick = onNotificationsClick
-                            )
-                        }
-                        item {
-                            UserIdentityCard(
-                                state.name,
-                                state.level,
-                                state.streakDays,
-                                onLogoutClick
-                            )
-                        }
-                        item { EnvironmentalImpactCard(state) }
+                        item { ProfileHeader(onThemeClick) }
+                        item { UserCard() }
+                        item { ImpactCard() }
                         item { AchievementsCard() }
-                        item {
-                            ProfileSettingsCard(
-                                onAccountSettingsClick,
-                                onPickupHistoryClick,
-                                onPrivacyPolicyClick,
-                                onAboutClick
-                            )
-                        }
+                        item { SettingsCard() }
                     }
                 }
             }
@@ -212,16 +150,10 @@ fun ProfileScreen(
     }
 }
 
+// Cabeçalho da tela
 @Composable
-private fun ProfileHeader(
-    location: String,
-    notificationCount: Int,
-    onLocationClick: () -> Unit,
-    onThemeToggleClick: () -> Unit,
-    onNotificationsClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier = modifier.fillMaxWidth()) {
+private fun ProfileHeader(onThemeClick: () -> Unit) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -236,38 +168,34 @@ private fun ProfileHeader(
                     .clip(CircleShape)
                     .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape)
             )
+
             Row(
                 modifier = Modifier
                     .weight(1f)
-                    .clip(RoundedCornerShape(8.dp))
-                    .clickable(role = Role.Button, onClick = onLocationClick)
+                    .clickable { }
                     .padding(horizontal = 10.dp, vertical = 2.dp),
                 verticalAlignment = Alignment.Top
             ) {
                 Icon(
-                    Icons.Default.LocationOn,
-                    contentDescription = null,
-                    modifier = Modifier.size(22.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    imageVector = Icons.Default.LocationOn,
+                    contentDescription = "Localização",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(22.dp)
                 )
                 Column(modifier = Modifier.padding(start = 4.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            "Localização",
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            fontSize = 15.sp
-                        )
+                        Text("Localização", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 15.sp)
                         Icon(
-                            Icons.AutoMirrored.Filled.ArrowForwardIos,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowForwardIos,
                             contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier
                                 .padding(start = 4.dp)
-                                .size(13.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                                .size(13.dp)
                         )
                     }
                     Text(
-                        location,
+                        text = "Vila Madalena, SP",
                         color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
@@ -276,122 +204,83 @@ private fun ProfileHeader(
                     )
                 }
             }
-            IconButton(
-                onClick = onThemeToggleClick,
-                modifier = Modifier.size(38.dp)
-            ) {
+
+            IconButton(onClick = onThemeClick, modifier = Modifier.size(38.dp)) {
                 Icon(
-                    Icons.Default.Contrast,
+                    imageVector = Icons.Default.Contrast,
                     contentDescription = "Alternar tema",
-                    modifier = Modifier.size(22.dp),
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.size(22.dp)
                 )
             }
-            NotificationButton(notificationCount, onNotificationsClick)
+
+            NotificationIcon()
         }
+
         Text(
-            "Seu Perfil",
-            modifier = Modifier.padding(top = 10.dp, bottom = 10.dp),
+            text = "Seu Perfil",
             color = MaterialTheme.colorScheme.primary,
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
-            letterSpacing = 0.56.sp
+            letterSpacing = 0.56.sp,
+            modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
         )
         HorizontalDivider(color = MaterialTheme.colorScheme.outline)
     }
 }
 
 @Composable
-private fun NotificationButton(count: Int, onClick: () -> Unit) {
+private fun NotificationIcon() {
     Box(modifier = Modifier.size(38.dp)) {
-        IconButton(
-            onClick = onClick,
-            modifier = Modifier
-                .align(Alignment.Center)
-                .size(38.dp)
-        ) {
+        IconButton(onClick = { }, modifier = Modifier.size(38.dp)) {
             Icon(
-                Icons.Default.NotificationsNone,
-                contentDescription = "Abrir notificações",
+                imageVector = Icons.Default.NotificationsNone,
+                contentDescription = "Notificações",
                 tint = MaterialTheme.colorScheme.onSurface
             )
         }
-        if (count > 0) {
-            Surface(
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .size(18.dp),
-                color = MaterialTheme.colorScheme.secondary,
-                shape = CircleShape
-            ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Text(
-                        count.coerceAtMost(9).toString(),
-                        color = MaterialTheme.colorScheme.onSecondary,
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+        Surface(
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .size(18.dp),
+            color = MaterialTheme.colorScheme.secondary,
+            shape = CircleShape
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                Text("3", color = Color.White, fontSize = 10.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
 }
 
+// Card com os dados da usuária
 @Composable
-private fun UserIdentityCard(
-    name: String,
-    level: String,
-    streakDays: Int,
-    onLogoutClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    ProfileCard(modifier) {
-        Row(
-            modifier = Modifier.padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+private fun UserCard() {
+    ProfileCard {
+        Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             Image(
                 painter = painterResource(R.drawable.profile_avatar),
-                contentDescription = "Foto de $name",
+                contentDescription = "Foto de Carol Silva",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(64.dp)
                     .clip(CircleShape)
                     .border(2.dp, MaterialTheme.colorScheme.primary, CircleShape)
             )
-            Spacer(Modifier.width(14.dp))
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
+            Spacer(modifier = Modifier.width(14.dp))
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text(
-                    name,
+                    "Carol Silva",
                     color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    fontWeight = FontWeight.Bold
                 )
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    ProfileTag(
-                        level,
-                        MaterialTheme.colorScheme.primary,
-                        MaterialTheme.colorScheme.primary.copy(alpha = 0.10f)
-                    )
-                    ProfileTag(
-                        "🔥 $streakDays dias",
-                        MaterialTheme.colorScheme.secondary,
-                        MaterialTheme.colorScheme.secondary.copy(alpha = 0.12f)
-                    )
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    ProfileTag("Eco-Herói", MaterialTheme.colorScheme.primary)
+                    ProfileTag("🔥 14 dias", MaterialTheme.colorScheme.secondary)
                 }
             }
-            TextButton(
-                onClick = onLogoutClick,
-                contentPadding = PaddingValues(horizontal = 10.dp)
-            ) {
+            TextButton(onClick = { }) {
                 Text(
                     "Sair",
                     color = MaterialTheme.colorScheme.error,
@@ -403,170 +292,127 @@ private fun UserIdentityCard(
     }
 }
 
+// Card com os números de impacto ambiental
 @Composable
-private fun EnvironmentalImpactCard(
-    state: ProfileUiState,
-    modifier: Modifier = Modifier
-) {
-    val metrics = listOf(
-        ImpactMetric(Icons.Default.Restaurant, state.mealsSaved.toString(), "Refeições Salvas"),
-        ImpactMetric(Icons.Default.Scale, "${state.foodSavedKg} kg", "Alimentos Salvos", true),
-        ImpactMetric(Icons.Default.Eco, "${state.co2AvoidedKg} kg", "CO2 Evitado")
-    )
-    ProfileCard(modifier) {
-        Column(Modifier.padding(16.dp)) {
+private fun ImpactCard() {
+    ProfileCard {
+        Column(modifier = Modifier.padding(16.dp)) {
             SectionTitle("Seu Impacto Ambiental")
-            Spacer(Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                metrics.forEach { metric ->
-                    ImpactMetricItem(metric, Modifier.weight(1f))
-                }
+                ImpactItem(Icons.Default.Restaurant, "145", "Refeições Salvas", Modifier.weight(1f))
+                ImpactItem(Icons.Default.Scale, "360 kg", "Alimentos Salvos", Modifier.weight(1f), true)
+                ImpactItem(Icons.Default.Eco, "62 kg", "CO2 Evitado", Modifier.weight(1f))
             }
         }
     }
 }
 
 @Composable
-private fun ImpactMetricItem(metric: ImpactMetric, modifier: Modifier = Modifier) {
-    val accent = if (metric.secondary) {
-        MaterialTheme.colorScheme.secondary
-    } else {
-        MaterialTheme.colorScheme.primary
-    }
-    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-        Surface(
-            modifier = Modifier.size(36.dp),
-            shape = RoundedCornerShape(12.dp),
-            color = accent.copy(alpha = 0.10f)
-        ) {
+private fun ImpactItem(
+    icon: ImageVector,
+    value: String,
+    label: String,
+    modifier: Modifier = Modifier,
+    orange: Boolean = false
+) {
+    val color = if (orange) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary
+
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Surface(color = color.copy(alpha = 0.10f), shape = RoundedCornerShape(12.dp), modifier = Modifier.size(36.dp)) {
             Box(contentAlignment = Alignment.Center) {
-                Icon(metric.icon, null, Modifier.size(20.dp), tint = accent)
+                Icon(icon, null, Modifier.size(20.dp), tint = color)
             }
         }
+        Text(value, color = color, fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 4.dp))
         Text(
-            metric.value,
-            modifier = Modifier.padding(top = 4.dp),
-            color = accent,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            metric.label,
+            label,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp,
+            lineHeight = 13.sp,
             textAlign = TextAlign.Center,
-            maxLines = 2,
-            lineHeight = 13.sp
-        )
-    }
-}
-
-@Composable
-private fun AchievementsCard(modifier: Modifier = Modifier) {
-    val achievements = listOf(
-        Achievement(Icons.Default.Grain, "Mestre da Padaria"),
-        Achievement(Icons.Default.Spa, "Guerreiro do Hortifruti"),
-        Achievement(Icons.Default.EmojiEvents, "Salvador - 100", secondary = true),
-        Achievement(Icons.Default.Cancel, "Streak 30 Dias", unlocked = false),
-        Achievement(Icons.Default.Recycling, "Zero Desperdício", unlocked = false),
-        Achievement(Icons.Default.VolunteerActivism, "Multi-Doador", unlocked = false)
-    )
-    ProfileCard(modifier) {
-        Column(Modifier.padding(16.dp)) {
-            SectionTitle("Conquistas Desbloqueadas")
-            Spacer(Modifier.height(12.dp))
-            achievements.chunked(3).forEachIndexed { index, row ->
-                Row(
-                    Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    row.forEach { item ->
-                        AchievementItem(item, Modifier.weight(1f))
-                    }
-                }
-                if (index == 0) Spacer(Modifier.height(12.dp))
-            }
-        }
-    }
-}
-
-@Composable
-private fun AchievementItem(item: Achievement, modifier: Modifier = Modifier) {
-    val accent = if (item.secondary) {
-        MaterialTheme.colorScheme.secondary
-    } else {
-        MaterialTheme.colorScheme.primary
-    }
-    Column(
-        modifier = modifier.alpha(if (item.unlocked) 1f else 0.38f),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Surface(
-            modifier = Modifier
-                .size(44.dp)
-                .border(1.dp, accent, CircleShape),
-            color = accent.copy(alpha = 0.08f),
-            shape = CircleShape
-        ) {
-            Box(contentAlignment = Alignment.Center) {
-                Icon(item.icon, null, Modifier.size(25.dp), tint = accent)
-            }
-        }
-        Text(
-            item.label,
-            modifier = Modifier.padding(top = 4.dp),
-            color = MaterialTheme.colorScheme.onSurface,
-            fontSize = 10.sp,
-            textAlign = TextAlign.Center,
-            lineHeight = 12.sp,
             maxLines = 2
         )
     }
 }
 
+// Card de conquistas
 @Composable
-private fun ProfileSettingsCard(
-    onAccountSettingsClick: () -> Unit,
-    onPickupHistoryClick: () -> Unit,
-    onPrivacyPolicyClick: () -> Unit,
-    onAboutClick: () -> Unit,
-    modifier: Modifier = Modifier
+private fun AchievementsCard() {
+    ProfileCard {
+        Column(modifier = Modifier.padding(16.dp)) {
+            SectionTitle("Conquistas Desbloqueadas")
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                AchievementItem(Icons.Default.Grain, "Mestre da Padaria", Modifier.weight(1f))
+                AchievementItem(Icons.Default.Spa, "Guerreiro do Hortifruti", Modifier.weight(1f))
+                AchievementItem(Icons.Default.EmojiEvents, "Salvador - 100", Modifier.weight(1f), orange = true)
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                AchievementItem(Icons.Default.Cancel, "Streak 30 Dias", Modifier.weight(1f), enabled = false)
+                AchievementItem(Icons.Default.Recycling, "Zero Desperdício", Modifier.weight(1f), enabled = false)
+                AchievementItem(Icons.Default.VolunteerActivism, "Multi-Doador", Modifier.weight(1f), enabled = false)
+            }
+        }
+    }
+}
+
+@Composable
+private fun AchievementItem(
+    icon: ImageVector,
+    label: String,
+    modifier: Modifier = Modifier,
+    orange: Boolean = false,
+    enabled: Boolean = true
 ) {
-    val items = listOf(
-        SettingsItem("Configurações de Conta", onAccountSettingsClick),
-        SettingsItem("Histórico de Retiradas", onPickupHistoryClick),
-        SettingsItem("Políticas de Privacidade", onPrivacyPolicyClick),
-        SettingsItem("Sobre o FoodRescue & ESG", onAboutClick)
+    val color = if (orange) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary
+
+    Column(
+        modifier = modifier.alpha(if (enabled) 1f else 0.38f),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Surface(
+            color = color.copy(alpha = 0.08f),
+            shape = CircleShape,
+            modifier = Modifier
+                .size(44.dp)
+                .border(1.dp, color, CircleShape)
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                Icon(icon, null, Modifier.size(25.dp), tint = color)
+            }
+        }
+        Text(
+            label,
+            color = MaterialTheme.colorScheme.onSurface,
+            fontSize = 10.sp,
+            lineHeight = 12.sp,
+            textAlign = TextAlign.Center,
+            maxLines = 2,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+    }
+}
+
+// Opções da conta
+@Composable
+private fun SettingsCard() {
+    val settings = listOf(
+        "Configurações de Conta",
+        "Histórico de Retiradas",
+        "Políticas de Privacidade",
+        "Sobre o FoodRescue & ESG"
     )
-    ProfileCard(modifier) {
-        Column(Modifier.padding(horizontal = 14.dp, vertical = 8.dp)) {
-            items.forEachIndexed { index, item ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 36.dp)
-                        .clip(RoundedCornerShape(6.dp))
-                        .clickable(role = Role.Button, onClick = item.onClick),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        item.label,
-                        modifier = Modifier.weight(1f),
-                        color = MaterialTheme.colorScheme.primary,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    Icon(
-                        Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                        contentDescription = null,
-                        modifier = Modifier.size(20.dp),
-                        tint = MaterialTheme.colorScheme.primary
-                    )
-                }
-                if (index < items.lastIndex) {
+
+    ProfileCard {
+        Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp)) {
+            settings.forEachIndexed { index, title ->
+                SettingsRow(title)
+                if (index < settings.lastIndex) {
                     HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                 }
             }
@@ -575,12 +421,35 @@ private fun ProfileSettingsCard(
 }
 
 @Composable
-private fun ProfileBottomBar(
-    onDestinationClick: (ProfileDestination) -> Unit,
-    modifier: Modifier = Modifier
-) {
+private fun SettingsRow(title: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 36.dp)
+            .clickable { },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            title,
+            color = MaterialTheme.colorScheme.primary,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.weight(1f)
+        )
+        Icon(
+            Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(20.dp)
+        )
+    }
+}
+
+// Barra inferior. A navegação será ligada junto com as rotas do aplicativo.
+@Composable
+private fun ProfileBottomBar() {
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         color = MaterialTheme.colorScheme.surface,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
     ) {
@@ -591,118 +460,79 @@ private fun ProfileBottomBar(
                 .padding(horizontal = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ProfileNavigationItem(Icons.Default.Home, "Home", false, Modifier.weight(1f)) {
-                onDestinationClick(ProfileDestination.HOME)
-            }
-            ProfileNavigationItem(Icons.Default.Search, "Explorar", false, Modifier.weight(1f)) {
-                onDestinationClick(ProfileDestination.EXPLORE)
-            }
-            Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {
+            BottomItem(Icons.Default.Home, "Home", Modifier.weight(1f))
+            BottomItem(Icons.Default.Search, "Explorar", Modifier.weight(1f))
+
+            Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
                 FloatingActionButton(
-                    onClick = { onDestinationClick(ProfileDestination.ADD) },
-                    modifier = Modifier.size(72.dp),
-                    shape = RoundedCornerShape(14.dp),
+                    onClick = { },
                     containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary,
-                    elevation = FloatingActionButtonDefaults.elevation(0.dp)
+                    contentColor = Color.White,
+                    shape = RoundedCornerShape(14.dp),
+                    elevation = FloatingActionButtonDefaults.elevation(0.dp),
+                    modifier = Modifier.size(72.dp)
                 ) {
                     Icon(Icons.Default.Add, "Adicionar doação", Modifier.size(34.dp))
                 }
             }
-            ProfileNavigationItem(
-                Icons.Outlined.FavoriteBorder,
-                "Retiradas",
-                false,
-                Modifier.weight(1f)
-            ) { onDestinationClick(ProfileDestination.PICKUPS) }
-            ProfileNavigationItem(
-                Icons.Outlined.AccountCircle,
-                "Perfil",
-                true,
-                Modifier.weight(1f)
-            ) { onDestinationClick(ProfileDestination.PROFILE) }
+
+            BottomItem(Icons.Outlined.FavoriteBorder, "Retiradas", Modifier.weight(1f))
+            BottomItem(Icons.Outlined.AccountCircle, "Perfil", Modifier.weight(1f), selected = true)
         }
     }
 }
 
 @Composable
-private fun ProfileNavigationItem(
+private fun BottomItem(
     icon: ImageVector,
     label: String,
-    selected: Boolean,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    selected: Boolean = false
 ) {
-    val color = if (selected) MaterialTheme.colorScheme.primary
-    else MaterialTheme.colorScheme.onSurfaceVariant
+    val color = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+
     Column(
         modifier = modifier
             .fillMaxHeight()
-            .clip(RoundedCornerShape(8.dp))
-            .clickable(role = Role.Button, onClick = onClick),
+            .clickable { },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Icon(icon, null, Modifier.size(28.dp), tint = color)
-        Text(label, Modifier.padding(top = 2.dp), color = color, fontSize = 11.sp, maxLines = 1)
+        Icon(icon, label, Modifier.size(28.dp), tint = color)
+        Text(label, color = color, fontSize = 11.sp, modifier = Modifier.padding(top = 2.dp))
     }
 }
 
 @Composable
-private fun ProfileCard(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+private fun ProfileCard(content: @Composable () -> Unit) {
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(18.dp),
         border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.outline),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-    ) { content() }
+    ) {
+        content()
+    }
 }
 
 @Composable
-private fun ProfileTag(
-    text: String,
-    contentColor: Color,
-    containerColor: Color,
-    modifier: Modifier = Modifier
-) {
-    Surface(modifier, shape = RoundedCornerShape(6.dp), color = containerColor) {
+private fun ProfileTag(text: String, color: Color) {
+    Surface(color = color.copy(alpha = 0.10f), shape = RoundedCornerShape(6.dp)) {
         Text(
             text,
-            Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
-            color = contentColor,
+            color = color,
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
-            maxLines = 1
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
         )
     }
 }
 
 @Composable
-private fun SectionTitle(text: String) {
-    Text(
-        text,
-        color = MaterialTheme.colorScheme.primary,
-        fontSize = 15.sp,
-        fontWeight = FontWeight.Bold
-    )
+private fun SectionTitle(title: String) {
+    Text(title, color = MaterialTheme.colorScheme.primary, fontSize = 15.sp, fontWeight = FontWeight.Bold)
 }
-
-private data class ImpactMetric(
-    val icon: ImageVector,
-    val value: String,
-    val label: String,
-    val secondary: Boolean = false
-)
-
-private data class Achievement(
-    val icon: ImageVector,
-    val label: String,
-    val unlocked: Boolean = true,
-    val secondary: Boolean = false
-)
-
-private data class SettingsItem(val label: String, val onClick: () -> Unit)
 
 @Preview(
     name = "Perfil claro",

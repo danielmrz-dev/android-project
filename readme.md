@@ -6,7 +6,7 @@ RM: 566721
 Douglas Cristian
 RM: 566847
 
-Beatriz Cavalcanti
+Nome: Beatriz Cavalcanti
 RM: 568493
 
 Nome: Bruna Sangoleti
