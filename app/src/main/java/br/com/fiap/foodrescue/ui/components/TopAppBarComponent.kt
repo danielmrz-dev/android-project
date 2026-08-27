@@ -22,6 +22,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -58,10 +59,12 @@ fun TopAppBarComponent(
             .fillMaxWidth()
             .statusBarsPadding()
             .background(MaterialTheme.colorScheme.background)
-            .padding(horizontal = 20.dp, vertical = 8.dp)
+            .padding(vertical = 8.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -102,7 +105,14 @@ fun TopAppBarComponent(
             color = MaterialTheme.colorScheme.primary,
             fontSize = 32.sp,
             fontWeight = FontWeight.ExtraBold,
-            style= MaterialTheme.typography.labelLarge
+            style= MaterialTheme.typography.labelLarge,
+            modifier = Modifier.padding(horizontal = 20.dp)
+        )
+
+        HorizontalDivider(
+            modifier = Modifier.padding(top = 12.dp),
+            thickness = 1.dp,
+            color = MaterialTheme.colorScheme.onSurface
         )
     }
 }

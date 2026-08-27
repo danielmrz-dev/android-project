@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
@@ -24,7 +24,7 @@ import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.TextFields
+
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -43,17 +43,20 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+
 import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
@@ -63,6 +66,10 @@ fun RegisterScreen() {
 
     var fullName by rememberSaveable { mutableStateOf("")  }
     var email by rememberSaveable { mutableStateOf("")  }
+    var taxId by rememberSaveable { mutableStateOf("")  }
+    var dateOfBirth by rememberSaveable { mutableStateOf("")  }
+    var password by rememberSaveable { mutableStateOf("")  }
+    var confirmPassword by rememberSaveable { mutableStateOf("")  }
 
     Scaffold() {
             innerPadding ->
@@ -111,7 +118,7 @@ fun RegisterScreen() {
                         }
                     }
                     Text(
-                        stringResource(R.string.login),
+                        stringResource(R.string.register_title),
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
@@ -192,8 +199,8 @@ fun RegisterScreen() {
                             unfocusedContainerColor = MaterialTheme.colorScheme.surface,
                         ),
                         shape = RoundedCornerShape(26.dp),
-                        value = email,
-                        onValueChange = { email = it },
+                        value = taxId,
+                        onValueChange = { taxId = it },
                         modifier = Modifier.fillMaxWidth()
                     )
 
@@ -216,8 +223,8 @@ fun RegisterScreen() {
                             unfocusedContainerColor = MaterialTheme.colorScheme.surface,
                         ),
                         shape = RoundedCornerShape(26.dp),
-                        value = email,
-                        onValueChange = { email = it },
+                        value = dateOfBirth,
+                        onValueChange = { dateOfBirth = it },
                         modifier = Modifier.fillMaxWidth()
                     )
 
@@ -240,8 +247,10 @@ fun RegisterScreen() {
                             unfocusedContainerColor = MaterialTheme.colorScheme.surface,
                         ),
                         shape = RoundedCornerShape(26.dp),
-                        value = email,
-                        onValueChange = { email = it },
+                        value = password,
+                        onValueChange = { password = it },
+                        visualTransformation = PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         modifier = Modifier.fillMaxWidth()
                     )
 
@@ -264,8 +273,10 @@ fun RegisterScreen() {
                             unfocusedContainerColor = MaterialTheme.colorScheme.surface,
                         ),
                         shape = RoundedCornerShape(26.dp),
-                        value = email,
-                        onValueChange = { email = it },
+                        value = confirmPassword,
+                        onValueChange = { confirmPassword = it },
+                        visualTransformation = PasswordVisualTransformation(),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         modifier = Modifier.fillMaxWidth()
                     )
 
