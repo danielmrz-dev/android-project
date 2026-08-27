@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AllInbox
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.PersonOutline
@@ -65,7 +66,7 @@ fun MyBottomAppBar(
                 onClick = {}
             )
             BottomNavItem(
-                icon = Icons.Default.FavoriteBorder,
+                icon = Icons.Default.AllInbox,
                 label = stringResource(R.string.withdrawals),
                 isSelected = currentRoute == stringResource(R.string.withdrawals),
                 onClick = {}

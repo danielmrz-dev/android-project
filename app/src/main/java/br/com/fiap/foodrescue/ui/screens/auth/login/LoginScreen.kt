@@ -45,7 +45,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+
 import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
@@ -75,7 +75,7 @@ fun LoginScreen() {
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .padding(16.dp),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -116,30 +116,38 @@ fun LoginScreen() {
                     }
                     Column(
                         modifier = Modifier
-                            .fillMaxSize()
+                            .fillMaxWidth()
                             .padding(innerPadding)
-                            .padding(dimensionResource(R.dimen.padding_medium))
+                            .padding(horizontal = dimensionResource(R.dimen.padding_medium)),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
                             stringResource(R.string.app_name),
-                            style = MaterialTheme.typography.headlineMedium,
+                            style = MaterialTheme.typography.headlineLarge,
                             color = MaterialTheme.colorScheme.primary,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Text(
+                            stringResource(R.string.login_slogan),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            textAlign = TextAlign.Center,
                             modifier = Modifier
-                                .fillMaxSize()
-                                .paddingFromBaseline(bottom = 20.dp)
+                                .fillMaxWidth()
+                                .padding(top = 4.dp, bottom = 20.dp)
                         )
                     }
                     Text(
                         stringResource(R.string.login),
-                        style = MaterialTheme.typography.headlineMedium,
+                        style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = FontWeight.Normal,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier
-                            .fillMaxSize()
+                            .fillMaxWidth()
                             .paddingFromBaseline(bottom = 20.dp)
 
                     )
@@ -150,7 +158,7 @@ fun LoginScreen() {
                                 imageVector = Icons.Default.Email,
                                 contentDescription = stringResource(R.string.email_icon),
                                 modifier = Modifier.padding(8.dp),
-                                tint = MaterialTheme.colorScheme.tertiary
+                                tint = MaterialTheme.colorScheme.secondary
                             )
                         },
                         label = { Text(stringResource(R.string.email), color = MaterialTheme.colorScheme.primary) },
@@ -174,7 +182,7 @@ fun LoginScreen() {
                                 imageVector = Icons.Default.Password,
                                 contentDescription = stringResource(R.string.password_icon),
                                 modifier = Modifier.padding(8.dp),
-                                tint = MaterialTheme.colorScheme.tertiary
+                                tint = MaterialTheme.colorScheme.secondary
                             )
                         },
                         label = { Text(stringResource(R.string.password), color = MaterialTheme.colorScheme.primary) },
@@ -209,8 +217,7 @@ fun LoginScreen() {
 
                     Text(
                         stringResource(R.string.don_t_have_an_account_click_here_to_register),
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontSize = 13.sp,
+                        style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,

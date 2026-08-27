@@ -1,8 +1,11 @@
 package br.com.fiap.foodrescue.ui.screens.home
 
 import android.content.res.Configuration
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,7 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
+
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,16 +24,16 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Groups
-import androidx.compose.material.icons.filled.Search
+
+import androidx.compose.material.icons.filled.ShoppingBag
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
+
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
+
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -71,31 +74,25 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     }
 }
 
-// Componente da Top App Bar
+
 @Composable
 fun MyTopAppBar(modifier: Modifier = Modifier) {
     var searchQuery by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier
-            .padding(horizontal = 20.dp)
     ) {
-        // Linha Superior: Logo + Localização + Notificação + Título Dinâmico (Home)
+
         TopAppBarComponent(title = stringResource(R.string.home))
 
-        HorizontalDivider(
-            modifier = Modifier.padding(top = 4.dp, bottom = 12.dp),
-            thickness = 1.dp,
-            color = MaterialTheme.colorScheme.onSurface
+        SearchBarComponent(
+            modifier = Modifier.padding(horizontal = 20.dp)
         )
-
-        // Barra de Pesquisa
-        SearchBarComponent()
     }
 }
 
 
-// Corpo principal
+
 @Composable
 fun ContentScreen(modifier: Modifier = Modifier) {
     Column(
@@ -111,21 +108,38 @@ fun ContentScreen(modifier: Modifier = Modifier) {
     }
 }
 
-// Card verde seu impacto hoje
+
 @Composable
 fun ImpactCard() {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent) // Transparente â€” a cor vem do overlay
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Tag Superior
+        Box {
+
+            Image(
+                painter = painterResource(id = R.drawable.feira),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.matchParentSize()
+            )
+
+
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.82f))
+            )
+
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -153,7 +167,7 @@ fun ImpactCard() {
                 )
             }
 
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = stringResource(R.string._127_meals_rescued),
@@ -181,10 +195,11 @@ fun ImpactCard() {
                 StatItem(value = "1.2k", label = stringResource(R.string.people))
             }
         }
+        }
     }
 }
 
-// Informações do card de impacto
+
 @Composable
 fun StatItem(value: String, label: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -203,7 +218,7 @@ fun StatItem(value: String, label: String) {
     }
 }
 
-// Card terracota suas solicitações
+
 @Composable
 fun RequestsCard() {
     Card(
@@ -229,7 +244,7 @@ fun RequestsCard() {
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Groups,
+                        imageVector = Icons.Default.ShoppingBag,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(15.dp)
@@ -244,7 +259,7 @@ fun RequestsCard() {
                 )
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = stringResource(R.string.you_have_2_active_withdrawal_requests),
@@ -264,7 +279,7 @@ fun RequestsCard() {
                 modifier = Modifier.clickable {}
             ) {
                 Text(
-                    text = stringResource(R.string.go_to_the_location_and_pick_it_up_now),
+                    text = stringResource(R.string.view_my_rescues),
                     color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
@@ -280,7 +295,7 @@ fun RequestsCard() {
     }
 }
 
-// Card de Mapa
+
 @Composable
 fun MapPreviewCard() {
     Card(
@@ -291,18 +306,14 @@ fun MapPreviewCard() {
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onPrimary)
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.onSurface),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = stringResource(R.string.map_preview),
-                    color = Color.Black,
-                    fontSize = 14.sp
-                )
-            }
+
+
+            Image(
+                painter = painterResource(id = R.drawable.map),
+                contentDescription = "Mapa",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
 
             Button(
                 onClick = {},
@@ -339,7 +350,7 @@ fun MapPreviewCard() {
 @Preview(
     showBackground = true,
     showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Composable
 private fun HomeScreenPreview() {

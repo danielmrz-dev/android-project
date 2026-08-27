@@ -1,10 +1,9 @@
 package br.com.fiap.foodrescue.ui.screens.explore
 
 import android.content.res.Configuration
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,13 +13,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
+
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
+
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -33,7 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -89,11 +88,7 @@ fun ExploreContentScreen(modifier: Modifier = Modifier) {
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         SearchBarComponent()
-        HorizontalDivider(
-            modifier = Modifier.padding(top = 12.dp),
-            thickness = 1.dp,
-            color = MaterialTheme.colorScheme.onSurface
-        )
+
         Spacer(modifier = Modifier.height(12.dp))
         FilterChipsSection()
         Spacer(modifier = Modifier.height(16.dp))
@@ -108,7 +103,7 @@ private fun FilterChipsSection() {
         stringResource(R.string.all),
         stringResource(R.string.produce),
         stringResource(R.string.baking),
-        stringResource(R.string.dairy)
+        stringResource(R.string.ready_meals)
     )
     var selectedFilter by remember { mutableStateOf("All") }
     LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -118,7 +113,6 @@ private fun FilterChipsSection() {
                 shape = RoundedCornerShape(16.dp),
                 color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSecondary,
                 shadowElevation = if (isSelected) 4.dp else 0.dp,
-                border = if (!isSelected) BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface) else null,
                 modifier = Modifier.padding(vertical = 4.dp),
                 onClick = { selectedFilter = filter }
             ) {
@@ -184,7 +178,7 @@ private fun DonationCard(item: DonationItem) {
         color = MaterialTheme.colorScheme.background,
         shadowElevation = 4.dp,
         modifier = Modifier.fillMaxWidth(),
-        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.outline)
+        //border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.outline)
     ) {
         androidx.compose.foundation.layout.Row(
             modifier = Modifier
