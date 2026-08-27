@@ -1,5 +1,6 @@
 package br.com.fiap.foodrescue.ui.screens.pickups
 
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
