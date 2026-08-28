@@ -15,13 +15,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             FoodRescueTheme {
                 NavigationRoutes()
-                //InitialScreen()
-                //LoginScreen()
-                //RegisterScreen()
-                //HomeScreen()
-                //ExploreScreen()
-                //PickUpScreen()
-                //ProfileScreen()
             }
         }
     }
