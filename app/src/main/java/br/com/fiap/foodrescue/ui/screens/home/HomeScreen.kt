@@ -51,22 +51,29 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.components.MyBottomAppBar
 import br.com.fiap.foodrescue.ui.components.SearchBarComponent
 import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
+import br.com.fiap.foodrescue.ui.navigation.Destination
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     Scaffold(
         modifier = modifier
             .fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = { MyTopAppBar() },
-        bottomBar = { MyBottomAppBar() }
+        bottomBar = { MyBottomAppBar(navController = navController, currentRoute = stringResource(R.string.home)) }
     ) { innerPadding ->
         ContentScreen(
+            navController = navController,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -94,7 +101,10 @@ fun MyTopAppBar(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun ContentScreen(modifier: Modifier = Modifier) {
+fun ContentScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
@@ -102,8 +112,8 @@ fun ContentScreen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         ImpactCard()
-        RequestsCard()
-        MapPreviewCard()
+        RequestsCard(navController)
+        MapPreviewCard(navController)
         Spacer(modifier = Modifier.height(12.dp))
     }
 }
@@ -220,7 +230,7 @@ fun StatItem(value: String, label: String) {
 
 
 @Composable
-fun RequestsCard() {
+fun RequestsCard(navController: NavController) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
@@ -276,7 +286,13 @@ fun RequestsCard() {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
-                modifier = Modifier.clickable {}
+                modifier = Modifier
+                    .clickable {
+                        navController
+                            .navigate(
+                                Destination.PickUpScreen.route
+                            )
+                    }
             ) {
                 Text(
                     text = stringResource(R.string.view_my_rescues),
@@ -297,7 +313,7 @@ fun RequestsCard() {
 
 
 @Composable
-fun MapPreviewCard() {
+fun MapPreviewCard(navController: NavController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -316,7 +332,12 @@ fun MapPreviewCard() {
             )
 
             Button(
-                onClick = {},
+                onClick = {
+                    navController
+                        .navigate(
+                            Destination.ExploreScreen.route
+                        )
+                },
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(16.dp)
@@ -355,6 +376,6 @@ fun MapPreviewCard() {
 @Composable
 private fun HomeScreenPreview() {
     FoodRescueTheme {
-        HomeScreen()
+        HomeScreen(rememberNavController())
     }
 }

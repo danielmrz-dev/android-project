@@ -3,6 +3,7 @@ package br.com.fiap.foodrescue.ui.screens.auth.login
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -41,17 +43,23 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 import br.com.fiap.foodrescue.R
+import br.com.fiap.foodrescue.ui.navigation.Destination
+import br.com.fiap.foodrescue.ui.navigation.NavigationRoutes
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
 
     var email by rememberSaveable { mutableStateOf("")  }
     var password by rememberSaveable { mutableStateOf("")  }
@@ -171,7 +179,11 @@ fun LoginScreen() {
                         shape = RoundedCornerShape(26.dp),
                         value = email,
                         onValueChange = { email = it },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Email,
+                            imeAction = ImeAction.Next
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
@@ -195,7 +207,11 @@ fun LoginScreen() {
                         shape = RoundedCornerShape(26.dp),
                         value = password,
                         onValueChange = { password = it },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Password,
+                            imeAction = ImeAction.Done
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(32.dp))
@@ -203,7 +219,10 @@ fun LoginScreen() {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-
+                            navController
+                                .navigate(
+                                    Destination.HomeScreen.route
+                                )
                         }
                     ) {
                         Text(
@@ -222,6 +241,14 @@ fun LoginScreen() {
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
                         overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .clickable {
+                                navController
+                                    .navigate(
+                                        Destination.RegisterScreen.route
+                                    )
+                        }
+
                     )
                 }
             }
@@ -236,6 +263,6 @@ fun LoginScreen() {
 @Composable
 private fun LoginScreenPreview() {
     FoodRescueTheme {
-        LoginScreen()
+        LoginScreen(rememberNavController())
     }
 }

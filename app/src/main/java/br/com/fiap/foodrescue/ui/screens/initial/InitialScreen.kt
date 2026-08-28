@@ -18,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,9 +33,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
+import kotlinx.coroutines.delay
 
 @Composable
-fun InitialScreen(modifier: Modifier = Modifier) {
+fun InitialScreen(
+    modifier: Modifier = Modifier,
+    onNavigateToNextScreen: () -> Unit = {}
+) {
+
+    // LaunchedEffect executa assim que a tela é montada
+    LaunchedEffect(Unit) {
+        delay(3000) // Aguarda 3000 milissegundos (3 segundos)
+        onNavigateToNextScreen() // Executa a navegação para a tela principal
+    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()

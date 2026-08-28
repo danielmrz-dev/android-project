@@ -13,4 +13,6 @@ sealed class Destination(val route: String){
     object ExploreScreen: Destination("explore")
 
     object PickUpScreen: Destination("pickup")
+
+    object ProfileScreen: Destination("profile")
 }

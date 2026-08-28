@@ -37,6 +37,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.components.MyBottomAppBar
 import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
@@ -44,6 +46,7 @@ import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
 fun PickUpScreen(
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -51,7 +54,7 @@ fun PickUpScreen(
             .fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = { TopAppBarComponent(title = stringResource(R.string.withdrawals)) },
-        bottomBar = { MyBottomAppBar(currentRoute = stringResource(R.string.withdrawals)) }
+        bottomBar = { MyBottomAppBar(navController = navController, currentRoute = stringResource(R.string.withdrawals)) }
     ) { paddingValues ->
         PickUpContentScreen(
             modifier = Modifier.padding(paddingValues)
@@ -271,6 +274,6 @@ fun PickUpCard(
 @Composable
 private fun PickUpScreenPreview() {
     FoodRescueTheme {
-        PickUpScreen()
+        PickUpScreen(rememberNavController())
     }
 }
