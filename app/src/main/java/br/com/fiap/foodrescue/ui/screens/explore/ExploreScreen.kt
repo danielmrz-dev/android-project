@@ -40,6 +40,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.components.MyBottomAppBar
 import br.com.fiap.foodrescue.ui.components.SearchBarComponent
@@ -48,6 +50,7 @@ import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
 fun ExploreScreen(
+    navController: NavController,
     modifier: Modifier = Modifier,
     onNavigateToHome: () -> Unit = {},
     onNavigateToRetiradas: () -> Unit = {},
@@ -58,7 +61,7 @@ fun ExploreScreen(
             .fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = { TopAppBarComponent(title = stringResource(R.string.explore)) },
-        bottomBar = { MyBottomAppBar(currentRoute = stringResource(R.string.explore)) }
+        bottomBar = { MyBottomAppBar(navController = navController, currentRoute = stringResource(R.string.explore)) }
     ) { paddingValues ->
         ExploreContentScreen(
             modifier = Modifier.padding(paddingValues)
@@ -73,7 +76,7 @@ fun ExploreScreen(
 @Composable
 private fun ExplorarScreenPreview() {
     FoodRescueTheme {
-        ExploreScreen()
+        ExploreScreen(rememberNavController())
     }
 }
 

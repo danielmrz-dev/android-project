@@ -10,6 +10,7 @@ import br.com.fiap.foodrescue.ui.screens.explore.ExploreScreen
 import br.com.fiap.foodrescue.ui.screens.home.HomeScreen
 import br.com.fiap.foodrescue.ui.screens.initial.InitialScreen
 import br.com.fiap.foodrescue.ui.screens.pickUp.PickUpScreen
+import br.com.fiap.foodrescue.ui.screens.profile.ProfileScreen
 
 @Composable
 fun NavigationRoutes() {
@@ -18,30 +19,40 @@ fun NavigationRoutes() {
         navController = navController,
         startDestination = Destination.InitialScreen.route
     ){
-        composable(Destination.InitialScreen.route){
-            InitialScreen()
+        composable(Destination.InitialScreen.route) {
+            InitialScreen(
+                onNavigateToNextScreen = {
+                    navController.navigate(Destination.LoginScreen.route) {
+                        popUpTo(Destination.InitialScreen.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            )
         }
 
         composable(Destination.LoginScreen.route){
-            LoginScreen()
+            LoginScreen(navController)
         }
 
         composable(Destination.RegisterScreen.route){
-            RegisterScreen()
+            RegisterScreen(navController)
         }
 
         composable(Destination.HomeScreen.route){
-            HomeScreen()
+            HomeScreen(navController)
         }
 
         composable(Destination.ExploreScreen.route){
-            ExploreScreen()
+            ExploreScreen(navController)
         }
 
         composable(Destination.PickUpScreen.route){
-            PickUpScreen()
+            PickUpScreen(navController)
+        }
+
+        composable(Destination.ProfileScreen.route) {
+            ProfileScreen(navController)
         }
     }
-
-    
 }

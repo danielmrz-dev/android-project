@@ -32,11 +32,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import br.com.fiap.foodrescue.R
+import br.com.fiap.foodrescue.ui.navigation.Destination
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
 fun MyBottomAppBar(
+    navController: NavController,
     modifier: Modifier = Modifier,
     currentRoute: String = stringResource(R.string.home) // Parâmetro novo!
 ) {
@@ -57,25 +61,45 @@ fun MyBottomAppBar(
                 icon = Icons.Default.Home,
                 label = stringResource(R.string.home),
                 isSelected = currentRoute == stringResource(R.string.home),
-                onClick = {}
+                onClick = {
+                    navController
+                        .navigate(
+                            Destination.HomeScreen.route
+                        )
+                }
             )
             BottomNavItem(
                 icon = Icons.Default.Search,
                 label = stringResource(R.string.explore),
                 isSelected = currentRoute == stringResource(R.string.explore),
-                onClick = {}
+                onClick = {
+                    navController
+                        .navigate(
+                            Destination.ExploreScreen.route
+                        )
+                }
             )
             BottomNavItem(
                 icon = Icons.Default.AllInbox,
                 label = stringResource(R.string.withdrawals),
                 isSelected = currentRoute == stringResource(R.string.withdrawals),
-                onClick = {}
+                onClick = {
+                    navController
+                        .navigate(
+                            Destination.PickUpScreen.route
+                        )
+                }
             )
             BottomNavItem(
                 icon = Icons.Default.PersonOutline,
                 label = stringResource(R.string.profile),
                 isSelected = currentRoute == stringResource(R.string.profile),
-                onClick = {}
+                onClick = {
+                    navController
+                        .navigate(
+                            Destination.ProfileScreen.route
+                        )
+                }
             )
         }
     }
@@ -112,6 +136,6 @@ fun BottomNavItem(
 @Composable
 private fun MyBottomAppBarPreview() {
     FoodRescueTheme() {
-        MyBottomAppBar()
+        MyBottomAppBar(navController = rememberNavController())
     }
 }

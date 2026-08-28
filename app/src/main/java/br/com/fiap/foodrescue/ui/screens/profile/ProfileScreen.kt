@@ -57,13 +57,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import br.com.fiap.foodrescue.R
 import br.com.fiap.foodrescue.ui.components.MyBottomAppBar
 import br.com.fiap.foodrescue.ui.components.TopAppBarComponent
+import br.com.fiap.foodrescue.ui.navigation.Destination
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @Composable
 fun ProfileScreen(
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -72,7 +76,7 @@ fun ProfileScreen(
             .statusBarsPadding(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = { TopAppBarComponent(title = stringResource(R.string.profile)) },
-        bottomBar = { MyBottomAppBar(currentRoute = stringResource(R.string.profile)) }
+        bottomBar = { MyBottomAppBar(navController = navController, currentRoute = stringResource(R.string.profile)) }
     ) { paddingValues ->
         LazyColumn(
             modifier = Modifier
@@ -81,7 +85,7 @@ fun ProfileScreen(
                 contentPadding = PaddingValues(15.dp, 11.dp, 15.dp, 16.dp),
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
-                item { UserCard() }
+                item { UserCard(navController) }
                 item { ImpactCard() }
                 item { AchievementsCard() }
                 item { SettingsCard() }
@@ -93,7 +97,7 @@ fun ProfileScreen(
 
 // Card com os dados da usuária
 @Composable
-private fun UserCard() {
+private fun UserCard(navController: NavController) {
     ProfileCard {
         Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             Image(
@@ -122,7 +126,12 @@ private fun UserCard() {
                     )
                 }
             }
-            TextButton(onClick = { }) {
+            TextButton(onClick = {
+                navController
+                    .navigate(
+                        Destination.LoginScreen.route
+                    )
+            }) {
                 Text(
                     stringResource(R.string.log_out),
                     color = MaterialTheme.colorScheme.error,
@@ -341,7 +350,7 @@ private fun SectionTitle(title: String) {
 )
 @Composable
 private fun ProfileScreenLightPreview() {
-    FoodRescueTheme(darkTheme = false) { ProfileScreen() }
+    FoodRescueTheme(darkTheme = false) { ProfileScreen(rememberNavController()) }
 }
 
 @Preview(
@@ -353,5 +362,5 @@ private fun ProfileScreenLightPreview() {
 )
 @Composable
 private fun ProfileScreenDarkPreview() {
-    FoodRescueTheme(darkTheme = true) { ProfileScreen() }
+    FoodRescueTheme(darkTheme = true) { ProfileScreen(rememberNavController()) }
 }

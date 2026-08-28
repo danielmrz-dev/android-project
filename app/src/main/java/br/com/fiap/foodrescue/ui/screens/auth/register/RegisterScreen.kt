@@ -50,19 +50,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 import br.com.fiap.foodrescue.R
+import br.com.fiap.foodrescue.ui.navigation.Destination
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(navController: NavController) {
 
     var fullName by rememberSaveable { mutableStateOf("")  }
     var email by rememberSaveable { mutableStateOf("")  }
@@ -153,7 +157,11 @@ fun RegisterScreen() {
                         shape = RoundedCornerShape(26.dp),
                         value = fullName,
                         onValueChange = { fullName = it },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Text,
+                            imeAction = ImeAction.Next
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
@@ -177,7 +185,11 @@ fun RegisterScreen() {
                         shape = RoundedCornerShape(26.dp),
                         value = email,
                         onValueChange = { email = it },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Email,
+                            imeAction = ImeAction.Next
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
@@ -201,7 +213,11 @@ fun RegisterScreen() {
                         shape = RoundedCornerShape(26.dp),
                         value = taxId,
                         onValueChange = { taxId = it },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                            imeAction = ImeAction.Next
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
@@ -225,7 +241,11 @@ fun RegisterScreen() {
                         shape = RoundedCornerShape(26.dp),
                         value = dateOfBirth,
                         onValueChange = { dateOfBirth = it },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                            imeAction = ImeAction.Next
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
@@ -250,8 +270,11 @@ fun RegisterScreen() {
                         value = password,
                         onValueChange = { password = it },
                         visualTransformation = PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Password,
+                            imeAction = ImeAction.Next
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
@@ -276,8 +299,11 @@ fun RegisterScreen() {
                         value = confirmPassword,
                         onValueChange = { confirmPassword = it },
                         visualTransformation = PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Password,
+                            imeAction = ImeAction.Done
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(24.dp))
@@ -285,7 +311,10 @@ fun RegisterScreen() {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-
+                            navController
+                                .navigate(
+                                    Destination.LoginScreen.route
+                                )
                         }
                     ) {
                         Text(
@@ -309,6 +338,6 @@ fun RegisterScreen() {
 @Composable
 private fun RegisterScreenPreview() {
     FoodRescueTheme {
-        RegisterScreen()
+        RegisterScreen(rememberNavController())
     }
 }
