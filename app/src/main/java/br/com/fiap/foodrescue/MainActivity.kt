@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import br.com.fiap.foodrescue.ui.navigation.NavigationRoutes
-import br.com.fiap.foodrescue.ui.screens.initial.InitialScreen
 import br.com.fiap.foodrescue.ui.theme.FoodRescueTheme
 
 class MainActivity : ComponentActivity() {

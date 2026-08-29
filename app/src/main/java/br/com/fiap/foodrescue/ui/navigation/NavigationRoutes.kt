@@ -8,7 +8,6 @@ import br.com.fiap.foodrescue.ui.screens.auth.login.LoginScreen
 import br.com.fiap.foodrescue.ui.screens.auth.register.RegisterScreen
 import br.com.fiap.foodrescue.ui.screens.explore.ExploreScreen
 import br.com.fiap.foodrescue.ui.screens.home.HomeScreen
-import br.com.fiap.foodrescue.ui.screens.initial.InitialScreen
 import br.com.fiap.foodrescue.ui.screens.pickUp.PickUpScreen
 import br.com.fiap.foodrescue.ui.screens.profile.ProfileScreen
 
@@ -17,20 +16,8 @@ fun NavigationRoutes() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Destination.InitialScreen.route
+        startDestination = Destination.LoginScreen.route
     ){
-        composable(Destination.InitialScreen.route) {
-            InitialScreen(
-                onNavigateToNextScreen = {
-                    navController.navigate(Destination.LoginScreen.route) {
-                        popUpTo(Destination.InitialScreen.route) {
-                            inclusive = true
-                        }
-                    }
-                }
-            )
-        }
-
         composable(Destination.LoginScreen.route){
             LoginScreen(navController)
         }

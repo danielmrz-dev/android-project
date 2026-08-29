@@ -1,4 +1,8 @@
 <resources>
 
-    <style name="Theme.FoodRescue" parent="Theme.MaterialComponents.Light.NoActionBar" />
+    <style name="Theme.FoodRescue" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Fundo e Ícone da Splash Screen Nativa (com suporte a Dark Mode) -->
+        <item name="android:windowSplashScreenBackground">@color/splash_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/icon_app</item>
+    </style>
 </resources>

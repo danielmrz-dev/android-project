@@ -2,8 +2,6 @@ package br.com.fiap.foodrescue.ui.navigation
 
 sealed class Destination(val route: String){
 
-    object InitialScreen: Destination("Initial")
-
     object LoginScreen: Destination("register")
 
     object RegisterScreen: Destination("Signup")
